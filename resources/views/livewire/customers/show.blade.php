@@ -5,12 +5,6 @@
                 {{ $customer->full_name }}
             </h2>
             <div class="flex gap-2">
-                <button 
-                    wire:click="openNotesModal"
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-bold text-sm"
-                >
-                    Notes ({{ $customer->customerNotes->count() }})
-                </button>
                 <a href="{{ route('customers.edit', $customer->id) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold text-sm">
                     Edit Customer
                 </a>
@@ -35,6 +29,16 @@
                     {{ session('error') }}
                 </div>
             @endif
+
+            <!-- Notes Button -->
+            <div class="flex justify-end">
+                <button 
+                    wire:click="openNotesModal"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-bold text-sm"
+                >
+                    📝 Notes ({{ $customer->customerNotes->count() }})
+                </button>
+            </div>
 
             <!-- Customer Info Card -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
