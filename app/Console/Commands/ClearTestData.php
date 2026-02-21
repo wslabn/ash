@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Sale;
 use App\Models\SaleItem;
+use App\Models\Payment;
+use App\Models\Invoice;
 use App\Models\Customer;
 use App\Models\CustomerTag;
 use App\Models\Inventory;
@@ -24,39 +26,34 @@ class ClearTestData extends Command
             return;
         }
 
-        DB::beginTransaction();
-        
         try {
-            // Delete in correct order (respecting foreign keys)
-            $this->info('Deleting sale items...');
+            // Disable foreign key checks
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            
+            // Delete in any order
+            $this->info('Clearing all test data...');
+            DB::table('return_items')->truncate();
+            DB::table('returns')->truncate();
             SaleItem::truncate();
-            
-            $this->info('Deleting sales...');
+            Payment::truncate();
+            Invoice::truncate();
             Sale::truncate();
-            
-            $this->info('Deleting customer tags...');
             DB::table('customer_tag_pivot')->truncate();
             CustomerTag::truncate();
-            
-            $this->info('Deleting customers...');
             Customer::truncate();
-            
-            $this->info('Deleting inventory...');
             Inventory::truncate();
-            
-            $this->info('Deleting products...');
+            DB::table('product_variants')->truncate();
             Product::truncate();
-            
-            $this->info('Deleting product categories...');
             ProductCategory::truncate();
             
-            DB::commit();
+            // Re-enable foreign key checks
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
             
             $this->info('✅ All test data cleared successfully!');
             $this->info('Admin user preserved.');
             
         } catch (\Exception $e) {
-            DB::rollBack();
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
             $this->error('Error clearing data: ' . $e->getMessage());
         }
     }

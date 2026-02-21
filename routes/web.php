@@ -7,6 +7,9 @@ use App\Livewire\Customers\Edit as CustomersEdit;
 use App\Livewire\Products\Index as ProductsIndex;
 use App\Livewire\Products\Create as ProductsCreate;
 use App\Livewire\Products\Edit as ProductsEdit;
+use App\Livewire\Sales\Index as SalesIndex;
+use App\Livewire\Sales\Create as SalesCreate;
+use App\Livewire\Sales\Show as SalesShow;
 
 Route::view('/', 'welcome');
 
@@ -27,6 +30,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/products', ProductsIndex::class)->name('products.index');
     Route::get('/products/create', ProductsCreate::class)->name('products.create');
     Route::get('/products/{id}/edit', ProductsEdit::class)->name('products.edit');
+    
+    Route::get('/sales', SalesIndex::class)->name('sales.index');
+    Route::get('/sales/create', SalesCreate::class)->name('sales.create');
+    Route::get('/sales/{id}', SalesShow::class)->name('sales.show');
 });
 
 require __DIR__.'/auth.php';
