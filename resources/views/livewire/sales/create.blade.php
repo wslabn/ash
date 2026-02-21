@@ -98,15 +98,15 @@
                                 <div class="w-64 space-y-2">
                                     <div class="flex justify-between text-gray-700 dark:text-gray-300">
                                         <span>Subtotal:</span>
-                                        <span>${{ number_format(collect($items)->sum(fn($i) => $i['quantity'] * $i['unit_price']), 2) }}</span>
+                                        <span class="text-green-600 dark:text-green-400 font-semibold">${{ number_format(collect($items)->sum(fn($i) => $i['quantity'] * $i['unit_price']), 2) }}</span>
                                     </div>
                                     <div class="flex justify-between text-gray-700 dark:text-gray-300">
                                         <span>Tax ({{ $tax_rate }}%):</span>
                                         <span>${{ number_format(collect($items)->sum(fn($i) => $i['quantity'] * $i['unit_price']) * ($tax_rate / 100), 2) }}</span>
                                     </div>
-                                    <div class="flex justify-between text-lg font-bold text-gray-900 dark:text-gray-100 border-t dark:border-gray-700 mt-2 pt-2">
-                                        <span>Total:</span>
-                                        <span>${{ number_format(collect($items)->sum(fn($i) => $i['quantity'] * $i['unit_price']) * (1 + $tax_rate / 100), 2) }}</span>
+                                    <div class="flex justify-between text-lg font-bold border-t dark:border-gray-700 mt-2 pt-2">
+                                        <span class="text-gray-900 dark:text-gray-100">Total:</span>
+                                        <span class="text-green-600 dark:text-green-400">${{ number_format(collect($items)->sum(fn($i) => $i['quantity'] * $i['unit_price']) * (1 + $tax_rate / 100), 2) }}</span>
                                     </div>
                                 </div>
                             </div>

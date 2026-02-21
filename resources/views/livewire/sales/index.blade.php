@@ -49,7 +49,7 @@
                                                 {{ ucfirst($sale->sale_type) }}
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">${{ number_format($sale->total_amount, 2) }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-green-600 dark:text-green-400 font-semibold">${{ number_format($sale->total_amount, 2) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 py-1 text-xs rounded-full 
                                                 @if($sale->payment_status === 'paid') bg-green-100 text-green-800

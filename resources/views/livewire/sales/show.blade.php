@@ -64,15 +64,15 @@
                         <div class="w-64 space-y-2">
                             <div class="flex justify-between text-gray-700 dark:text-gray-300">
                                 <span>Subtotal:</span>
-                                <span>${{ number_format($sale->subtotal, 2) }}</span>
+                                <span class="text-green-600 dark:text-green-400 font-semibold">${{ number_format($sale->subtotal, 2) }}</span>
                             </div>
                             <div class="flex justify-between text-gray-700 dark:text-gray-300">
                                 <span>Tax:</span>
                                 <span>${{ number_format($sale->tax_amount, 2) }}</span>
                             </div>
-                            <div class="flex justify-between text-xl font-bold text-gray-900 dark:text-gray-100 border-t dark:border-gray-700 pt-2">
-                                <span>Total:</span>
-                                <span>${{ number_format($sale->total_amount, 2) }}</span>
+                            <div class="flex justify-between text-xl font-bold border-t dark:border-gray-700 pt-2">
+                                <span class="text-gray-900 dark:text-gray-100">Total:</span>
+                                <span class="text-green-600 dark:text-green-400">${{ number_format($sale->total_amount, 2) }}</span>
                             </div>
                         </div>
                     </div>

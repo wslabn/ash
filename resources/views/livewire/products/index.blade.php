@@ -41,7 +41,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $product->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $product->sku }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">${{ number_format($product->base_cost, 2) }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">${{ number_format($product->base_retail_price, 2) }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-green-600 dark:text-green-400 font-semibold">${{ number_format($product->base_retail_price, 2) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @php
                                                 $stock = $product->inventory->sum('quantity');
