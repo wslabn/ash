@@ -36,7 +36,10 @@ class GlobalSearch extends Component
             'products' => Product::where('user_id', $userId)
                 ->where(function($q) {
                     $q->where('name', 'like', '%' . $this->query . '%')
-                      ->orWhere('sku', 'like', '%' . $this->query . '%');
+                      ->orWhere('sku', 'like', '%' . $this->query . '%')
+                      ->orWhereHas('category', function($query) {
+                          $query->where('name', 'like', '%' . $this->query . '%');
+                      });
                 })
                 ->limit(5)
                 ->get(),
