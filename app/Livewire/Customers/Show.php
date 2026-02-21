@@ -18,6 +18,7 @@ class Show extends Component
     public $totalOrders;
     public $lastPurchase;
     public $newNote = '';
+    public $showNotesModal = false;
 
     public function mount($id)
     {
@@ -28,6 +29,17 @@ class Show extends Component
         $this->totalSpent = $this->customer->sales->sum('total_amount');
         $this->totalOrders = $this->customer->sales->count();
         $this->lastPurchase = $this->customer->sales->sortByDesc('created_at')->first()?->created_at;
+    }
+
+    public function openNotesModal()
+    {
+        $this->showNotesModal = true;
+    }
+
+    public function closeNotesModal()
+    {
+        $this->showNotesModal = false;
+        $this->newNote = '';
     }
 
     public function toggleRecruitingInterest()
@@ -86,7 +98,6 @@ class Show extends Component
 
         $this->newNote = '';
         $this->customer->load('customerNotes.user');
-        session()->flash('message', 'Note added successfully.');
     }
 
     public function deleteNote($noteId)
@@ -96,7 +107,6 @@ class Show extends Component
             ->delete();
 
         $this->customer->load('customerNotes.user');
-        session()->flash('message', 'Note deleted successfully.');
     }
 
     public function render()

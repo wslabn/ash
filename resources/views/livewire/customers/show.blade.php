@@ -5,6 +5,9 @@
                 {{ $customer->full_name }}
             </h2>
             <div class="flex gap-2">
+                <button wire:click="openNotesModal" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-bold text-sm">
+                    Notes ({{ $customer->customerNotes->count() }})
+                </button>
                 <a href="{{ route('customers.edit', $customer->id) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold text-sm">
                     Edit Customer
                 </a>
@@ -179,11 +182,25 @@
                 </div>
             </div>
 
-            <!-- Notes & Timeline -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Notes & Timeline</h3>
-                    
+        </div>
+    </div>
+
+    <!-- Notes Modal -->
+    @if($showNotesModal)
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50" wire:click="closeNotesModal">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-hidden" wire:click.stop>
+                <div class="p-6 border-b dark:border-gray-700">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Notes & Timeline</h3>
+                        <button wire:click="closeNotesModal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-6 overflow-y-auto" style="max-height: calc(90vh - 180px);">
                     <!-- Add Note Form -->
                     <form wire:submit="addNote" class="mb-6">
                         <div class="flex gap-2">
@@ -194,7 +211,7 @@
                                 class="flex-1 rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-purple-500 dark:focus:border-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600"
                             ></textarea>
                             <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold self-start">
-                                Add Note
+                                Add
                             </button>
                         </div>
                         @error('newNote') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -228,7 +245,6 @@
                     @endif
                 </div>
             </div>
-
         </div>
-    </div>
+    @endif
 </div>
