@@ -50,8 +50,8 @@
                                                 $stock = $product->inventory->sum('quantity');
                                                 $lowStock = $product->inventory->where('quantity', '<=', 'low_stock_threshold')->count() > 0;
                                             @endphp
-                                            <span class="{{ $lowStock ? 'text-red-600' : 'text-gray-900 dark:text-gray-100' }}">
-                                                {{ $stock }} {{ $lowStock ? '⚠️' : '' }}
+                                            <span class="{{ $stock < 0 ? 'text-red-600 dark:text-red-400 font-bold' : ($lowStock ? 'text-yellow-600 dark:text-yellow-400 font-bold' : 'text-gray-900 dark:text-gray-100') }}">
+                                                {{ $stock }}
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
