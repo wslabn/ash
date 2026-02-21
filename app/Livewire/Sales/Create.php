@@ -30,6 +30,11 @@ class Create extends Component
 
     public function mount()
     {
+        // Pre-select customer from query parameter
+        if (request()->has('customer_id')) {
+            $this->customer_id = request()->get('customer_id');
+        }
+        
         $this->addItem();
     }
 
