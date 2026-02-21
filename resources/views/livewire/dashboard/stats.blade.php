@@ -1,5 +1,12 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <!-- Quick Actions -->
+        <div class="mb-6 flex gap-4">
+            <a href="{{ route('customers.create') }}" class="bg-mary-kay-pink hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                + Add Customer
+            </a>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <!-- Total Sales -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -33,7 +40,10 @@
             <!-- Top Customers -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Top Customers</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Top Customers</h3>
+                        <a href="{{ route('customers.index') }}" class="text-sm text-purple-accent hover:text-purple-900">View All →</a>
+                    </div>
                     <div class="space-y-3">
                         @forelse($topCustomers as $customer)
                             <div class="flex justify-between items-center">
