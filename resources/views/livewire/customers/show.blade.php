@@ -98,10 +98,7 @@
                                         <div class="text-right">
                                             <p class="text-xl font-bold text-green-600 dark:text-green-400">${{ number_format($sale->total_amount, 2) }}</p>
                                             <div class="flex items-center gap-2 justify-end mt-1">
-                                                <span class="px-2 py-1 text-xs rounded-full 
-                                                    @if($sale->sale_type === 'party') bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200
-                                                    @elseif($sale->sale_type === 'online') bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200
-                                                    @else bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 @endif">
+                                                <span class="px-2 py-1 text-xs rounded-full bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200">
                                                     {{ ucfirst($sale->sale_type) }}
                                                 </span>
                                                 <span class="text-xs text-purple-600 dark:text-purple-400 font-medium">View →</span>

@@ -42,10 +42,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $sale->sale_number }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $sale->customer->full_name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full 
-                                                @if($sale->sale_type === 'party') bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200
-                                                @elseif($sale->sale_type === 'online') bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200
-                                                @else bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 @endif">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200">
                                                 {{ ucfirst($sale->sale_type) }}
                                             </span>
                                         </td>
