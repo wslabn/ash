@@ -5,7 +5,9 @@ namespace App\Livewire\Sales;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Sale;
+use Livewire\Attributes\Layout;
 
+#[Layout('layouts.app')]
 class Index extends Component
 {
     use WithPagination;

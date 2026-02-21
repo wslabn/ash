@@ -9,7 +9,9 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Inventory;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Layout;
 
+#[Layout('layouts.app')]
 class Create extends Component
 {
     public $customer_id;

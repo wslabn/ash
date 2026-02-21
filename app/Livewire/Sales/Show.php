@@ -4,7 +4,9 @@ namespace App\Livewire\Sales;
 
 use Livewire\Component;
 use App\Models\Sale;
+use Livewire\Attributes\Layout;
 
+#[Layout('layouts.app')]
 class Show extends Component
 {
     public Sale $sale;
