@@ -60,7 +60,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $sale->created_at->format('M d, Y') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('sales.show', $sale) }}" class="text-purple-accent hover:text-purple-900">View</a>
+                                            <a href="{{ route('sales.show', $sale) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold">View</a>
                                         </td>
                                     </tr>
                                 @empty

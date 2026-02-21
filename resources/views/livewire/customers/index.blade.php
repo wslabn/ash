@@ -42,9 +42,9 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $customer->phone }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $customer->city }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('customers.edit', $customer->id) }}" class="text-purple-accent hover:text-purple-900 mr-3">Edit</a>
+                                            <a href="{{ route('customers.edit', $customer->id) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold mr-2">Edit</a>
                                             <button wire:click="confirmDelete({{ $customer->id }})" wire:confirm="Are you sure you want to delete this customer?" 
-                                                class="text-red-600 hover:text-red-900">Delete</button>
+                                                class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-bold">Delete</button>
                                         </td>
                                     </tr>
                                 @empty

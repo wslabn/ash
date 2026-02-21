@@ -52,9 +52,9 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('products.edit', $product->id) }}" class="text-purple-accent hover:text-purple-900 mr-3">Edit</a>
+                                            <a href="{{ route('products.edit', $product->id) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold mr-2">Edit</a>
                                             <button wire:click="delete({{ $product->id }})" wire:confirm="Delete this product?" 
-                                                class="text-red-600 hover:text-red-900">Delete</button>
+                                                class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-bold">Delete</button>
                                         </td>
                                     </tr>
                                 @empty
