@@ -55,6 +55,7 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button wire:click="openAdjustModal({{ $product->id }}, '{{ $product->name }}')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-bold mr-2">Adjust</button>
                                             <a href="{{ route('products.edit', $product->id) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold mr-2">Edit</a>
                                             <button wire:click="delete({{ $product->id }})" wire:confirm="Delete this product?" 
                                                 class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-bold">Delete</button>
@@ -78,4 +79,61 @@
             </div>
         </div>
     </div>
+    
+    <!-- Inventory Adjustment Modal -->
+    @if($showAdjustModal)
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div class="p-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Adjust Stock: {{ $adjustProductName }}</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Adjustment Type</label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center">
+                                <input type="radio" wire:model="adjustType" value="add" class="mr-2">
+                                <span class="text-gray-900 dark:text-gray-100">Add Stock</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" wire:model="adjustType" value="remove" class="mr-2">
+                                <span class="text-gray-900 dark:text-gray-100">Remove Stock</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Quantity *</label>
+                        <input wire:model="adjustQuantity" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+                        @error('adjustQuantity') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Reason *</label>
+                        <select wire:model="adjustReason" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+                            <option value="">Select reason...</option>
+                            <option value="Sample given out">Sample given out</option>
+                            <option value="Damaged/Defective">Damaged/Defective</option>
+                            <option value="Personal use">Personal use</option>
+                            <option value="Inventory correction">Inventory correction</option>
+                            <option value="Received shipment">Received shipment</option>
+                            <option value="Found extra stock">Found extra stock</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        @error('adjustReason') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" wire:click="closeAdjustModal" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+                        Cancel
+                    </button>
+                    <button type="button" wire:click="saveAdjustment" class="bg-mary-kay-pink hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                        Save Adjustment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
