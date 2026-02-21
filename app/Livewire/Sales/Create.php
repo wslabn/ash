@@ -39,6 +39,21 @@ class Create extends Component
         $this->addItem();
     }
 
+    public function getSubtotalProperty()
+    {
+        return collect($this->items)->sum(fn($item) => ($item['quantity'] ?? 0) * ($item['unit_price'] ?? 0));
+    }
+
+    public function getTaxProperty()
+    {
+        return $this->subtotal * ($this->tax_rate / 100);
+    }
+
+    public function getTotalProperty()
+    {
+        return $this->subtotal + $this->tax + ($this->shipping_amount ?? 0);
+    }
+
     public function addItem()
     {
         $this->items[] = ['product_id' => '', 'quantity' => 1, 'unit_price' => 0, 'original_price' => 0];

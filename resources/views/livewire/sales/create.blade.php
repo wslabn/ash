@@ -59,7 +59,7 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Shipping ($)</label>
-                                <input wire:model="shipping_amount" type="number" step="0.01" min="0" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+                                <input wire:model.live="shipping_amount" type="number" step="0.01" min="0" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
                             </div>
                         </div>
 
@@ -117,6 +117,30 @@
                                         <span class="text-gray-900 dark:text-gray-100">Total:</span>
                                         <span class="text-green-600 dark:text-green-400">${{ number_format(collect($items)->sum(fn($i) => $i['quantity'] * $i['unit_price']) * (1 + $tax_rate / 100), 2) }}</span>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Summary -->
+                        <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 mb-6">
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-gray-700 dark:text-gray-300">
+                                    <span>Subtotal:</span>
+                                    <span class="font-semibold">${{ number_format($this->subtotal, 2) }}</span>
+                                </div>
+                                <div class="flex justify-between text-gray-700 dark:text-gray-300">
+                                    <span>Tax ({{ $tax_rate }}%):</span>
+                                    <span class="font-semibold">${{ number_format($this->tax, 2) }}</span>
+                                </div>
+                                @if($shipping_amount > 0)
+                                    <div class="flex justify-between text-gray-700 dark:text-gray-300">
+                                        <span>Shipping:</span>
+                                        <span class="font-semibold">${{ number_format($shipping_amount, 2) }}</span>
+                                    </div>
+                                @endif
+                                <div class="flex justify-between text-xl font-bold border-t dark:border-gray-700 pt-2">
+                                    <span class="text-gray-900 dark:text-gray-100">Total:</span>
+                                    <span class="text-green-600 dark:text-green-400">${{ number_format($this->total, 2) }}</span>
                                 </div>
                             </div>
                         </div>
