@@ -87,22 +87,25 @@
                     @if($customer->sales->count() > 0)
                         <div class="space-y-4">
                             @foreach($customer->sales->sortByDesc('created_at') as $sale)
-                                <div class="border dark:border-gray-700 rounded-lg p-4">
+                                <a href="{{ route('sales.show', $sale->id) }}" class="block border dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition cursor-pointer">
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
-                                            <a href="{{ route('sales.show', $sale->id) }}" class="text-lg font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300">
+                                            <p class="text-lg font-semibold text-purple-600 dark:text-purple-400">
                                                 {{ $sale->sale_number }}
-                                            </a>
+                                            </p>
                                             <p class="text-sm text-gray-500 dark:text-gray-400">{{ $sale->created_at->format('F d, Y g:i A') }}</p>
                                         </div>
                                         <div class="text-right">
                                             <p class="text-xl font-bold text-green-600 dark:text-green-400">${{ number_format($sale->total_amount, 2) }}</p>
-                                            <span class="px-2 py-1 text-xs rounded-full 
-                                                @if($sale->sale_type === 'party') bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200
-                                                @elseif($sale->sale_type === 'online') bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200
-                                                @else bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 @endif">
-                                                {{ ucfirst($sale->sale_type) }}
-                                            </span>
+                                            <div class="flex items-center gap-2 justify-end mt-1">
+                                                <span class="px-2 py-1 text-xs rounded-full 
+                                                    @if($sale->sale_type === 'party') bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200
+                                                    @elseif($sale->sale_type === 'online') bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200
+                                                    @else bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 @endif">
+                                                    {{ ucfirst($sale->sale_type) }}
+                                                </span>
+                                                <span class="text-xs text-purple-600 dark:text-purple-400 font-medium">View →</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="mt-2">
@@ -113,7 +116,7 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                </div>
+                                </a>
                             @endforeach
                         </div>
                     @else
