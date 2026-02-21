@@ -9,7 +9,8 @@ class Customer extends Model
     protected $fillable = [
         'user_id', 'first_name', 'last_name', 'email', 'phone',
         'address_line1', 'address_line2', 'city', 'state', 'zip_code', 'country',
-        'birthday', 'skin_type', 'preferences', 'how_met', 'notes', 'stripe_customer_id'
+        'birthday', 'skin_type', 'preferences', 'how_met', 'notes', 'stripe_customer_id',
+        'recruiting_interest', 'converted_to_user_id'
     ];
 
     protected $casts = [
@@ -34,6 +35,11 @@ class Customer extends Model
     public function customerNotes()
     {
         return $this->hasMany(CustomerNote::class);
+    }
+
+    public function convertedToUser()
+    {
+        return $this->belongsTo(User::class, 'converted_to_user_id');
     }
 
     public function getFullNameAttribute()

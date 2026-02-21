@@ -18,6 +18,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
+            @if (session()->has('message'))
+                <div class="bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded">
+                    {{ session('message') }}
+                </div>
+            @endif
+
+            @if (session()->has('error'))
+                <div class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <!-- Customer Info Card -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
@@ -78,6 +90,51 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Recruiting Section -->
+            @if($customer->converted_to_user_id)
+                <div class="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-green-800 dark:text-green-200">✓ Converted to Consultant</h3>
+                            <p class="text-sm text-green-700 dark:text-green-300 mt-1">
+                                This customer is now a consultant: {{ $customer->convertedToUser->name }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Recruiting</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Track recruiting interest and convert to consultant</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input 
+                                        type="checkbox" 
+                                        wire:click="toggleRecruitingInterest"
+                                        {{ $customer->recruiting_interest ? 'checked' : '' }}
+                                        class="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                                    >
+                                    <span class="text-sm text-gray-700 dark:text-gray-300">Interested in Joining</span>
+                                </label>
+                                @if($customer->recruiting_interest)
+                                    <button 
+                                        wire:click="convertToConsultant"
+                                        wire:confirm="Convert this customer to a consultant? They will receive login credentials."
+                                        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-bold text-sm"
+                                    >
+                                        Convert to Consultant
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <!-- Purchase History -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
