@@ -9,7 +9,7 @@
 
 ## Phase 1: Foundation & Core Features ⏳
 **Goal:** Get your wife using the system for her own business  
-**Status:** 33% Complete (12/36 tasks)
+**Status:** 50% Complete (18/36 tasks)
 
 ### 1.1 Project Setup (7/7) ✅
 - [x] Initialize Laravel project
@@ -27,14 +27,14 @@
 - [x] Settings page
 - [x] Dark/light mode (system preference)
 
-### 1.3 Inventory Management (0/7)
-- [ ] Product categories (pre-loaded Mary Kay + custom)
-- [ ] Product CRUD with variants
+### 1.3 Inventory Management (6/7)
+- [x] Product categories (pre-loaded Mary Kay + custom)
+- [x] Product CRUD with variants
 - [ ] Pre-loaded Mary Kay product templates
-- [ ] Stock level tracking
-- [ ] Low stock alerts (configurable)
-- [ ] Expiration date tracking
-- [ ] Purchase order tracking
+- [x] Stock level tracking
+- [x] Low stock alerts (configurable)
+- [x] Expiration date tracking
+- [x] Purchase order tracking
 
 ### 1.4 Customer CRM (0/6)
 - [ ] Customer CRUD
