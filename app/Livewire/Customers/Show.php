@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\CustomerNote;
 use App\Models\User;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -19,6 +20,8 @@ class Show extends Component
     public $lastPurchase;
     public $newNote = '';
     public $showNotesModal = false;
+    public $showCallLogModal = false;
+    public $callNote = '';
 
     public function mount($id)
     {
@@ -31,6 +34,7 @@ class Show extends Component
         $this->lastPurchase = $this->customer->sales->sortByDesc('created_at')->first()?->created_at;
     }
 
+    #[On('openNotesModal')]
     public function openNotesModal()
     {
         $this->showNotesModal = true;
@@ -40,6 +44,35 @@ class Show extends Component
     {
         $this->showNotesModal = false;
         $this->newNote = '';
+    }
+
+    #[On('logInteraction')]
+    public function openCallLogModal()
+    {
+        $this->showCallLogModal = true;
+    }
+
+    public function closeCallLogModal()
+    {
+        $this->showCallLogModal = false;
+        $this->callNote = '';
+    }
+
+    public function logCall()
+    {
+        $this->validate([
+            'callNote' => 'required|string|max:1000',
+        ]);
+
+        CustomerNote::create([
+            'customer_id' => $this->customer->id,
+            'user_id' => auth()->id(),
+            'note' => '📞 Call: ' . $this->callNote,
+        ]);
+
+        $this->callNote = '';
+        $this->showCallLogModal = false;
+        $this->customer->load('customerNotes.user');
     }
 
     public function toggleRecruitingInterest()

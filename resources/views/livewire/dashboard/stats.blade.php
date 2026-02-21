@@ -1,17 +1,6 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <!-- Quick Actions -->
-        <div class="mb-6 flex gap-4">
-            <a href="{{ route('sales.create') }}" class="bg-mary-kay-pink hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
-                + New Sale
-            </a>
-            <a href="{{ route('customers.create') }}" class="bg-purple-accent hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                + Add Customer
-            </a>
-            <a href="{{ route('products.create') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                + Add Product
-            </a>
-        </div>
+        <!-- Quick Actions removed - now in FAB -->
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <!-- Total Sales -->
@@ -90,4 +79,7 @@
             </div>
         </div>
     </div>
+
+    <!-- FAB for Global Context -->
+    <livewire:floating-action-button context="global" />
 </div>

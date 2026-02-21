@@ -4,6 +4,7 @@ namespace App\Livewire\Products;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 use App\Models\Product;
 
 class Index extends Component
@@ -31,7 +32,8 @@ class Index extends Component
         session()->flash('message', 'Product deleted successfully.');
     }
     
-    public function openAdjustModal($productId, $productName)
+    #[On('openAdjustModal')]
+    public function openAdjustModal($productId = null, $productName = null)
     {
         $this->adjustProductId = $productId;
         $this->adjustProductName = $productName;

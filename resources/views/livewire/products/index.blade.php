@@ -136,4 +136,7 @@
         </div>
     </div>
     @endif
+
+    <!-- FAB for Product Context -->
+    <livewire:floating-action-button context="product" />
 </div>

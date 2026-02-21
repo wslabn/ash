@@ -78,4 +78,7 @@
             </div>
         </div>
     </div>
+
+    <!-- FAB for Sales Context -->
+    <livewire:floating-action-button context="sales" />
 </div>

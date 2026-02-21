@@ -30,15 +30,7 @@
                 </div>
             @endif
 
-            <!-- Notes Button -->
-            <div class="flex justify-end">
-                <button 
-                    wire:click="openNotesModal"
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-bold text-sm"
-                >
-                    📝 Notes ({{ $customer->customerNotes->count() }})
-                </button>
-            </div>
+            <!-- Notes Button (removed - now in FAB) -->
 
             <!-- Customer Info Card -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -192,6 +184,45 @@
         </div>
     </div>
 
+    <!-- Call Log Modal -->
+    @if($showCallLogModal)
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50" wire:click="closeCallLogModal">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4" @click.stop>
+                <div class="p-6 border-b dark:border-gray-700">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Log Call/Interaction</h3>
+                        <button wire:click="closeCallLogModal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <form wire:submit="logCall">
+                        <textarea 
+                            wire:model="callNote" 
+                            placeholder="What did you discuss?"
+                            rows="4"
+                            class="w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-purple-500 dark:focus:border-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600"
+                        ></textarea>
+                        @error('callNote') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        
+                        <div class="mt-4 flex gap-2 justify-end">
+                            <button type="button" wire:click="closeCallLogModal" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded font-bold">
+                                Cancel
+                            </button>
+                            <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <!-- Notes Modal -->
     @if($showNotesModal)
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50" wire:click="closeNotesModal">
@@ -254,4 +285,7 @@
             </div>
         </div>
     @endif
+
+    <!-- FAB for Customer Context -->
+    <livewire:floating-action-button context="customer" :customerId="$customer->id" />
 </div>

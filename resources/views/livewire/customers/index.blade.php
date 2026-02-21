@@ -66,4 +66,7 @@
             </div>
         </div>
     </div>
+
+    <!-- FAB for Global Context -->
+    <livewire:floating-action-button context="global" />
 </div>
