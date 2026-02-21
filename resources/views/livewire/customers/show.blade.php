@@ -5,7 +5,10 @@
                 {{ $customer->full_name }}
             </h2>
             <div class="flex gap-2">
-                <button wire:click="openNotesModal" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-bold text-sm">
+                <button 
+                    wire:click="openNotesModal"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-bold text-sm"
+                >
                     Notes ({{ $customer->customerNotes->count() }})
                 </button>
                 <a href="{{ route('customers.edit', $customer->id) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold text-sm">
@@ -188,7 +191,7 @@
     <!-- Notes Modal -->
     @if($showNotesModal)
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50" wire:click="closeNotesModal">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-hidden" wire:click.stop>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-hidden" @click.stop>
                 <div class="p-6 border-b dark:border-gray-700">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Notes & Timeline</h3>
