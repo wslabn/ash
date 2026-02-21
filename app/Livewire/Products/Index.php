@@ -57,9 +57,9 @@ class Index extends Component
             
         if ($inventory) {
             if ($this->adjustType === 'add') {
-                $inventory->increment('quantity_on_hand', $this->adjustQuantity);
+                $inventory->increment('quantity', $this->adjustQuantity);
             } else {
-                $inventory->decrement('quantity_on_hand', $this->adjustQuantity);
+                $inventory->decrement('quantity', $this->adjustQuantity);
             }
             
             // Log the adjustment (we'll add this table later if needed)
