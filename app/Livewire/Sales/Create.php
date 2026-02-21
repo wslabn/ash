@@ -133,6 +133,7 @@ class Create extends Component
                     'sale_id' => $sale->id,
                     'product_id' => $item['product_id'],
                     'quantity' => $item['quantity'],
+                    'unit_cost' => $product->base_cost,
                     'unit_price' => $item['unit_price'],
                     'discount_amount' => $discountAmount,
                     'subtotal' => $item['quantity'] * $item['unit_price'],
