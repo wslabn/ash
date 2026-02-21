@@ -50,7 +50,14 @@
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                                 @foreach($sale->items as $item)
                                     <tr>
-                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ $item->product->name }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                                            {{ $item->product->name }}
+                                            @if($item->discount_amount > 0)
+                                                <span class="ml-2 text-xs text-red-600 dark:text-red-400 font-medium">
+                                                    (Discounted ${{ number_format($item->discount_amount, 2) }})
+                                                </span>
+                                            @endif
+                                        </td>
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-right">{{ $item->quantity }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-right">${{ number_format($item->unit_price, 2) }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-right">${{ number_format($item->subtotal, 2) }}</td>

@@ -40,7 +40,7 @@ class Create extends Component
 
     public function addItem()
     {
-        $this->items[] = ['product_id' => '', 'quantity' => 1, 'unit_price' => 0];
+        $this->items[] = ['product_id' => '', 'quantity' => 1, 'unit_price' => 0, 'original_price' => 0];
     }
 
     public function removeItem($index)
@@ -55,7 +55,8 @@ class Create extends Component
             $index = explode('.', $key)[0];
             $product = Product::find($this->items[$index]['product_id']);
             if ($product) {
-                $this->items[$index]['unit_price'] = $product->retail_price;
+                $this->items[$index]['unit_price'] = $product->base_retail_price;
+                $this->items[$index]['original_price'] = $product->base_retail_price;
             }
         }
     }
@@ -125,11 +126,15 @@ class Create extends Component
             ]);
 
             foreach ($this->items as $item) {
+                $product = Product::find($item['product_id']);
+                $discountAmount = ($item['original_price'] - $item['unit_price']) * $item['quantity'];
+                
                 SaleItem::create([
                     'sale_id' => $sale->id,
                     'product_id' => $item['product_id'],
                     'quantity' => $item['quantity'],
                     'unit_price' => $item['unit_price'],
+                    'discount_amount' => $discountAmount,
                     'subtotal' => $item['quantity'] * $item['unit_price'],
                 ]);
 
@@ -137,7 +142,7 @@ class Create extends Component
                     ->where('product_id', $item['product_id'])
                     ->first();
                 if ($inventory) {
-                    $inventory->decrement('quantity_on_hand', $item['quantity']);
+                    $inventory->decrement('quantity', $item['quantity']);
                 }
             }
 
