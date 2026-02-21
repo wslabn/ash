@@ -15,7 +15,7 @@ use Livewire\Attributes\Layout;
 class Create extends Component
 {
     public $customer_id;
-    public $sale_type = 'retail';
+    public $sale_type = 'direct';
     public $payment_method = 'cash';
     public $items = [];
     public $tax_rate = 8.25;
@@ -100,7 +100,7 @@ class Create extends Component
     {
         $this->validate([
             'customer_id' => 'required|exists:customers,id',
-            'sale_type' => 'required|in:retail,party,online',
+            'sale_type' => 'required|in:direct,party,online',
             'payment_method' => 'required|in:cash,card,check,venmo,paypal',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',

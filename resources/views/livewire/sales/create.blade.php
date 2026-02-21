@@ -36,7 +36,7 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Sale Type *</label>
                                 <select wire:model="sale_type" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
-                                    <option value="retail">Retail</option>
+                                    <option value="direct">Direct</option>
                                     <option value="party">Party</option>
                                     <option value="online">Online</option>
                                 </select>
