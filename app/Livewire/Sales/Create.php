@@ -19,6 +19,7 @@ class Create extends Component
     public $payment_method = 'cash';
     public $items = [];
     public $tax_rate = 8.25;
+    public $shipping_amount = 0;
     
     // Quick add customer modal
     public $showCustomerModal = false;
@@ -111,7 +112,7 @@ class Create extends Component
         try {
             $subtotal = collect($this->items)->sum(fn($item) => $item['quantity'] * $item['unit_price']);
             $tax = $subtotal * ($this->tax_rate / 100);
-            $total = $subtotal + $tax;
+            $total = $subtotal + $tax + $this->shipping_amount;
 
             $sale = Sale::create([
                 'user_id' => auth()->id(),
@@ -120,6 +121,7 @@ class Create extends Component
                 'sale_type' => $this->sale_type,
                 'subtotal' => $subtotal,
                 'tax_amount' => $tax,
+                'shipping_amount' => $this->shipping_amount,
                 'total_amount' => $total,
                 'payment_status' => 'paid',
                 'payment_method' => $this->payment_method,

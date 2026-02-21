@@ -57,6 +57,10 @@
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tax Rate (%)</label>
                                 <input wire:model="tax_rate" type="number" step="0.01" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
                             </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Shipping ($)</label>
+                                <input wire:model="shipping_amount" type="number" step="0.01" min="0" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+                            </div>
                         </div>
 
                         <div class="mb-6">
