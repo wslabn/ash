@@ -38,6 +38,7 @@ class ClearTestData extends Command
             Payment::truncate();
             Invoice::truncate();
             Sale::truncate();
+            DB::table('customer_notes')->truncate();
             DB::table('customer_tag_pivot')->truncate();
             CustomerTag::truncate();
             Customer::truncate();

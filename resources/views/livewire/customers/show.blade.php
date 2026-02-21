@@ -122,6 +122,56 @@
                 </div>
             </div>
 
+            <!-- Notes & Timeline -->
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Notes & Timeline</h3>
+                    
+                    <!-- Add Note Form -->
+                    <form wire:submit="addNote" class="mb-6">
+                        <div class="flex gap-2">
+                            <textarea 
+                                wire:model="newNote" 
+                                placeholder="Add a note about this customer..."
+                                rows="2"
+                                class="flex-1 rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-purple-500 dark:focus:border-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600"
+                            ></textarea>
+                            <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold self-start">
+                                Add Note
+                            </button>
+                        </div>
+                        @error('newNote') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    </form>
+
+                    <!-- Timeline -->
+                    @if($customer->customerNotes->count() > 0)
+                        <div class="space-y-4">
+                            @foreach($customer->customerNotes->sortByDesc('created_at') as $note)
+                                <div class="border-l-4 border-purple-500 pl-4 py-2">
+                                    <div class="flex justify-between items-start">
+                                        <div class="flex-1">
+                                            <p class="text-gray-900 dark:text-gray-100">{{ $note->note }}</p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                                {{ $note->created_at->format('M d, Y g:i A') }}
+                                            </p>
+                                        </div>
+                                        <button 
+                                            wire:click="deleteNote({{ $note->id }})" 
+                                            wire:confirm="Are you sure you want to delete this note?"
+                                            class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 text-sm ml-4"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="text-gray-500 dark:text-gray-400 text-center py-8">No notes yet</p>
+                    @endif
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

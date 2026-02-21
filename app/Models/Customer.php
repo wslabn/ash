@@ -31,6 +31,11 @@ class Customer extends Model
         return $this->hasMany(Sale::class);
     }
 
+    public function customerNotes()
+    {
+        return $this->hasMany(CustomerNote::class);
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
