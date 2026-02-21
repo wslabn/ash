@@ -16,8 +16,11 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <input wire:model.live="search" type="text" placeholder="Search products..." 
-                            class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+                        <div class="flex items-center space-x-4">
+                            <input wire:model.live="search" type="text" placeholder="Search products..." 
+                                class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+                            <a href="{{ route('categories.index') }}" class="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium">Manage Categories</a>
+                        </div>
                         <a href="{{ route('products.create') }}" class="bg-mary-kay-pink hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
                             Add Product
                         </a>
