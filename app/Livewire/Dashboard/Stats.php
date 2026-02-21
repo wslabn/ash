@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Livewire\Dashboard;
+
+use Livewire\Component;
+use App\Models\Sale;
+use App\Models\Customer;
+use App\Models\Product;
+use App\Models\Inventory;
+use Illuminate\Support\Facades\DB;
+
+class Stats extends Component
+{
+    public function render()
+    {
+        $userId = auth()->id();
+        
+        // Sales summary
+        $totalSales = Sale::where('user_id', $userId)
+            ->where('payment_status', 'paid')
+            ->sum('total_amount');
+        
+        $salesCount = Sale::where('user_id', $userId)->count();
+        
+        // Inventory value
+        $inventoryValue = Inventory::where('user_id', $userId)
+            ->sum(DB::raw('quantity * cost_per_unit'));
+        
+        // Top customers
+        $topCustomers = Customer::where('user_id', $userId)
+            ->withCount('sales')
+            ->orderBy('sales_count', 'desc')
+            ->limit(5)
+            ->get();
+        
+        // Best selling products
+        $bestProducts = Product::where('user_id', $userId)
+            ->withCount('saleItems')
+            ->orderBy('sale_items_count', 'desc')
+            ->limit(5)
+            ->get();
+        
+        // Profit calculation
+        $totalProfit = Sale::where('user_id', $userId)
+            ->where('payment_status', 'paid')
+            ->get()
+            ->sum(function($sale) {
+                return $sale->items->sum(function($item) {
+                    return ($item->unit_price - $item->unit_cost) * $item->quantity;
+                });
+            });
+
+        return view('livewire.dashboard.stats', [
+            'totalSales' => $totalSales,
+            'salesCount' => $salesCount,
+            'inventoryValue' => $inventoryValue,
+            'topCustomers' => $topCustomers,
+            'bestProducts' => $bestProducts,
+            'totalProfit' => $totalProfit,
+        ]);
+    }
+}

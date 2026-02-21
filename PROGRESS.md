@@ -9,7 +9,7 @@
 
 ## Phase 1: Foundation & Core Features ⏳
 **Goal:** Get your wife using the system for her own business  
-**Status:** 67% Complete (24/36 tasks)
+**Status:** 83% Complete (30/36 tasks)
 
 ### 1.1 Project Setup (7/7) ✅
 - [x] Initialize Laravel project
@@ -44,13 +44,13 @@
 - [x] Purchase history view
 - [x] Basic search functionality
 
-### 1.5 Sales & Orders (0/6)
-- [ ] Create sale (direct, party, online types)
-- [ ] Inventory deduction
-- [ ] Manual payment methods (cash, check)
-- [ ] Basic invoicing
-- [ ] Sales history
-- [ ] Returns/refunds with inventory option
+### 1.5 Sales & Orders (6/6) ✅
+- [x] Create sale (direct, party, online types)
+- [x] Inventory deduction
+- [x] Manual payment methods (cash, check)
+- [x] Basic invoicing
+- [x] Sales history
+- [x] Returns/refunds with inventory option
 
 ### 1.6 Basic Reporting (0/5)
 - [ ] Sales summary dashboard
