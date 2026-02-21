@@ -15,9 +15,9 @@
                             <p class="text-gray-600 dark:text-gray-400">{{ $sale->created_at->format('F d, Y g:i A') }}</p>
                         </div>
                         <span class="px-3 py-1 rounded-full text-sm font-medium
-                            @if($sale->payment_status === 'paid') bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200
-                            @elseif($sale->payment_status === 'pending') bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200
-                            @else bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 @endif">
+                            @if($sale->payment_status === 'paid') bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
+                            @elseif($sale->payment_status === 'pending') bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
+                            @else bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200 @endif">
                             {{ ucfirst($sale->payment_status) }}
                         </span>
                     </div>
