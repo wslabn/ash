@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Customers\Index as CustomersIndex;
 use App\Livewire\Customers\Create as CustomersCreate;
 use App\Livewire\Customers\Edit as CustomersEdit;
+use App\Livewire\Customers\Show as CustomersShow;
 use App\Livewire\Products\Index as ProductsIndex;
 use App\Livewire\Products\Create as ProductsCreate;
 use App\Livewire\Products\Edit as ProductsEdit;
@@ -28,6 +29,7 @@ Route::view('profile', 'profile')
 Route::middleware(['auth'])->group(function () {
     Route::get('/customers', CustomersIndex::class)->name('customers.index');
     Route::get('/customers/create', CustomersCreate::class)->name('customers.create');
+    Route::get('/customers/{id}', CustomersShow::class)->name('customers.show');
     Route::get('/customers/{id}/edit', CustomersEdit::class)->name('customers.edit');
     
     Route::get('/products', ProductsIndex::class)->name('products.index');
