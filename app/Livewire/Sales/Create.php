@@ -19,6 +19,14 @@ class Create extends Component
     public $payment_method = 'cash';
     public $items = [];
     public $tax_rate = 8.25;
+    
+    // Quick add customer modal
+    public $showCustomerModal = false;
+    public $newCustomerFirstName;
+    public $newCustomerLastName;
+    public $newCustomerPhone;
+    public $newCustomerEmail;
+    public $newCustomerHowMet;
 
     public function mount()
     {
@@ -45,6 +53,41 @@ class Create extends Component
                 $this->items[$index]['unit_price'] = $product->retail_price;
             }
         }
+    }
+    
+    public function openCustomerModal()
+    {
+        $this->showCustomerModal = true;
+    }
+    
+    public function closeCustomerModal()
+    {
+        $this->showCustomerModal = false;
+        $this->reset(['newCustomerFirstName', 'newCustomerLastName', 'newCustomerPhone', 'newCustomerEmail', 'newCustomerHowMet']);
+    }
+    
+    public function saveQuickCustomer()
+    {
+        $this->validate([
+            'newCustomerFirstName' => 'required|string|max:255',
+            'newCustomerLastName' => 'required|string|max:255',
+            'newCustomerPhone' => 'nullable|string|max:20',
+            'newCustomerEmail' => 'nullable|email|max:255',
+            'newCustomerHowMet' => 'nullable|string|max:255',
+        ]);
+        
+        $customer = Customer::create([
+            'user_id' => auth()->id(),
+            'first_name' => $this->newCustomerFirstName,
+            'last_name' => $this->newCustomerLastName,
+            'phone' => $this->newCustomerPhone,
+            'email' => $this->newCustomerEmail,
+            'how_met' => $this->newCustomerHowMet,
+        ]);
+        
+        $this->customer_id = $customer->id;
+        $this->closeCustomerModal();
+        $this->dispatch('customer-added');
     }
 
     public function save()
