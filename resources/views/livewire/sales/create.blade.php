@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="flex justify-end space-x-4">
-                            <a href="{{ route('sales.index') }}" class="px-6 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <a href="{{ route('sales.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded">
                                 Cancel
                             </a>
                             <button type="submit" class="bg-mary-kay-pink hover:bg-pink-700 text-white font-bold py-2 px-6 rounded">
