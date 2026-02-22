@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media print {
+    /* Hide navigation, buttons, and non-essential elements */
+    nav, button, .no-print {
+        display: none !important;
+    }
+    
+    /* Show only the invoice content */
+    body {
+        background: white;
+    }
+    
+    /* Ensure proper page breaks */
+    .page-break {
+        page-break-after: always;
+    }
+}

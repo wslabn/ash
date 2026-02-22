@@ -29,11 +29,8 @@
                             <p class="text-gray-600 dark:text-gray-400">{{ $sale->created_at->format('F d, Y g:i A') }}</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button wire:click="downloadPdf" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold text-sm">
-                                📄 Download PDF
-                            </button>
-                            <button wire:click="emailInvoice" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-bold text-sm">
-                                📧 Email Invoice
+                            <button onclick="window.print()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold text-sm">
+                                🖨️ Print Invoice
                             </button>
                             <span class="px-3 py-1 rounded-full text-sm font-medium
                                 @if($sale->payment_status === 'paid') bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200

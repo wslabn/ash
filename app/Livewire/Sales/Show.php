@@ -114,47 +114,6 @@ class Show extends Component
         }
     }
 
-    public function downloadPdf()
-    {
-        $pdf = Pdf::loadView('invoices.pdf', ['sale' => $this->sale]);
-        return response()->streamDownload(function() use ($pdf) {
-            echo $pdf->output();
-        }, 'invoice-' . $this->sale->sale_number . '.pdf');
-    }
-
-    public function emailInvoice()
-    {
-        if (!$this->sale->customer->email) {
-            session()->flash('error', 'Customer does not have an email address.');
-            return;
-        }
-
-        try {
-            // Set mail config from database settings
-            $apiKey = Setting::get('sendgrid.api_key');
-            if ($apiKey) {
-                Config::set('mail.mailers.sendgrid.password', $apiKey);
-                Config::set('mail.default', 'sendgrid');
-            }
-            
-            $fromAddress = Setting::get('mail.from.address', config('mail.from.address'));
-            $fromName = Setting::get('mail.from.name', config('mail.from.name'));
-            
-            $pdf = Pdf::loadView('invoices.pdf', ['sale' => $this->sale]);
-            
-            \Illuminate\Support\Facades\Mail::send('emails.invoice', ['sale' => $this->sale], function($message) use ($pdf, $fromAddress, $fromName) {
-                $message->from($fromAddress, $fromName)
-                    ->to($this->sale->customer->email, $this->sale->customer->full_name)
-                    ->subject('Invoice ' . $this->sale->sale_number . ' from ' . $this->sale->user->name)
-                    ->attachData($pdf->output(), 'invoice-' . $this->sale->sale_number . '.pdf');
-            });
-
-            session()->flash('message', 'Invoice emailed to ' . $this->sale->customer->email);
-        } catch (\Exception $e) {
-            session()->flash('error', 'Failed to send email: ' . $e->getMessage());
-        }
-    }
-
     public function render()
     {
         return view('livewire.sales.show');
