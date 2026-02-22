@@ -9,6 +9,7 @@ use App\Models\ReturnItem;
 use App\Models\Inventory;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 
 #[Layout('layouts.app')]
 class Show extends Component
@@ -35,6 +36,7 @@ class Show extends Component
         }
     }
 
+    #[On('openReturnModal')]
     public function openReturnModal()
     {
         $this->showReturnModal = true;

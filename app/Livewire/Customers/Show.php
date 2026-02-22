@@ -35,6 +35,7 @@ class Show extends Component
     }
 
     #[On('openNotesModal')]
+    #[On('openNotesModal')]
     public function openNotesModal()
     {
         $this->showNotesModal = true;
