@@ -1,13 +1,8 @@
 <div>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Sale Details
-            </h2>
-            <button wire:click="openReturnModal" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-bold text-sm">
-                Process Return
-            </button>
-        </div>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Sale Details
+        </h2>
     </x-slot>
 
     <div class="py-12">
@@ -23,6 +18,13 @@
                     {{ session('error') }}
                 </div>
             @endif
+
+            <!-- Process Return Button -->
+            <div class="flex justify-end mb-4">
+                <button wire:click="openReturnModal" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-bold text-sm">
+                    🔄 Process Return
+                </button>
+            </div>
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
