@@ -136,7 +136,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-6 pt-6 border-t dark:border-gray-700">
+                    <div class="mt-6 pt-6 border-t dark:border-gray-700 no-print">
                         <a href="{{ route('sales.index') }}" class="text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium">← Back to Sales</a>
                     </div>
                 </div>
