@@ -28,10 +28,11 @@
                 </header>
             @endif
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <!-- Floating Action Button -->
+            <livewire:floating-action-button />
+            
+            <!-- Process Return Modal -->
+            <livewire:process-return />
         </div>
         @livewireScripts
     </body>
