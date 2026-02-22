@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Top Customers -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
@@ -74,6 +74,44 @@
                         @empty
                             <p class="text-gray-600 dark:text-gray-400">No products sold yet</p>
                         @endforelse
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recruiting Pipeline -->
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Recruiting Pipeline</h3>
+                    <div class="space-y-3">
+                        <a href="{{ route('customers.index') }}?recruiting=1" class="flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 p-3 rounded transition">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Showing Interest</p>
+                                    <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ $recruitingInterest }}</p>
+                                </div>
+                            </div>
+                            <span class="text-purple-600 dark:text-purple-400">→</span>
+                        </a>
+                        <a href="{{ route('customers.index') }}?converted=1" class="flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 p-3 rounded transition">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Converted</p>
+                                    <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ $convertedConsultants }}</p>
+                                </div>
+                            </div>
+                            <span class="text-purple-600 dark:text-purple-400">→</span>
+                        </a>
+                        <div class="flex justify-between items-center pt-3 border-t dark:border-gray-700">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Active Team Members</p>
+                                    <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ $activeTeamMembers }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

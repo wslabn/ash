@@ -3,13 +3,24 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
 
 new class extends Component
 {
+    use WithFileUploads;
+
     public string $name = '';
     public string $email = '';
+    public string $phone = '';
+    public string $facebook_url = '';
+    public string $instagram_url = '';
+    public string $youtube_url = '';
+    public string $website_url = '';
+    public $profile_photo;
+    public $business_logo;
 
     /**
      * Mount the component.
@@ -18,6 +29,11 @@ new class extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->phone = Auth::user()->phone ?? '';
+        $this->facebook_url = Auth::user()->facebook_url ?? '';
+        $this->instagram_url = Auth::user()->instagram_url ?? '';
+        $this->youtube_url = Auth::user()->youtube_url ?? '';
+        $this->website_url = Auth::user()->website_url ?? '';
     }
 
     /**
@@ -30,9 +46,42 @@ new class extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'facebook_url' => ['nullable', 'url', 'max:255'],
+            'instagram_url' => ['nullable', 'url', 'max:255'],
+            'youtube_url' => ['nullable', 'url', 'max:255'],
+            'website_url' => ['nullable', 'url', 'max:255'],
+            'profile_photo' => ['nullable', 'image', 'max:2048'],
+            'business_logo' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $user->fill($validated);
+        $user->fill([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'facebook_url' => $validated['facebook_url'],
+            'instagram_url' => $validated['instagram_url'],
+            'youtube_url' => $validated['youtube_url'],
+            'website_url' => $validated['website_url'],
+        ]);
+
+        // Handle profile photo upload
+        if ($this->profile_photo) {
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+            $path = $this->profile_photo->store('profile-photos', 'public');
+            $user->profile_photo = $path;
+        }
+
+        // Handle business logo upload
+        if ($this->business_logo) {
+            if ($user->business_logo) {
+                Storage::disk('public')->delete($user->business_logo);
+            }
+            $path = $this->business_logo->store('business-logos', 'public');
+            $user->business_logo = $path;
+        }
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -41,6 +90,8 @@ new class extends Component
         $user->save();
 
         $this->dispatch('profile-updated', name: $user->name);
+        $this->profile_photo = null;
+        $this->business_logo = null;
     }
 
     /**
@@ -102,6 +153,56 @@ new class extends Component
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="phone" :value="__('Phone Number')" />
+            <x-text-input wire:model="phone" id="phone" name="phone" type="text" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
+
+        <div>
+            <x-input-label for="facebook_url" :value="__('Facebook URL')" />
+            <x-text-input wire:model="facebook_url" id="facebook_url" name="facebook_url" type="url" placeholder="https://facebook.com/yourpage" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('facebook_url')" />
+        </div>
+
+        <div>
+            <x-input-label for="instagram_url" :value="__('Instagram URL')" />
+            <x-text-input wire:model="instagram_url" id="instagram_url" name="instagram_url" type="url" placeholder="https://instagram.com/yourprofile" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('instagram_url')" />
+        </div>
+
+        <div>
+            <x-input-label for="youtube_url" :value="__('YouTube URL')" />
+            <x-text-input wire:model="youtube_url" id="youtube_url" name="youtube_url" type="url" placeholder="https://youtube.com/@yourchannel" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('youtube_url')" />
+        </div>
+
+        <div>
+            <x-input-label for="website_url" :value="__('Website URL')" />
+            <x-text-input wire:model="website_url" id="website_url" name="website_url" type="url" placeholder="https://yourwebsite.com" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('website_url')" />
+        </div>
+
+        <div>
+            <x-input-label for="profile_photo" :value="__('Profile Photo')" />
+            @if(auth()->user()->profile_photo)
+                <img src="{{ Storage::url(auth()->user()->profile_photo) }}" class="w-20 h-20 rounded-full object-cover mt-2 mb-2">
+            @endif
+            <input wire:model="profile_photo" id="profile_photo" type="file" accept="image/*" class="mt-1 block w-full text-sm text-gray-900 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 dark:file:bg-gray-700 dark:file:text-gray-300" />
+            <x-input-error class="mt-2" :messages="$errors->get('profile_photo')" />
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Your personal photo for your account.</p>
+        </div>
+
+        <div>
+            <x-input-label for="business_logo" :value="__('Business Logo')" />
+            @if(auth()->user()->business_logo)
+                <img src="{{ Storage::url(auth()->user()->business_logo) }}" class="w-20 h-20 rounded-full object-cover mt-2 mb-2">
+            @endif
+            <input wire:model="business_logo" id="business_logo" type="file" accept="image/*" class="mt-1 block w-full text-sm text-gray-900 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 dark:file:bg-gray-700 dark:file:text-gray-300" />
+            <x-input-error class="mt-2" :messages="$errors->get('business_logo')" />
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Your business logo for invoices and marketing materials.</p>
         </div>
 
         <div class="flex items-center gap-4">

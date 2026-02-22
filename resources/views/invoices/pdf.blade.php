@@ -30,7 +30,13 @@
 <body>
     <div class="header">
         <div class="logo-cell">
-            <img src="{{ public_path('images/ashbrookeLogo.png') }}" alt="Logo" class="logo">
+            @if($sale->user->business_logo)
+                <img src="{{ public_path('storage/' . $sale->user->business_logo) }}" alt="Logo" class="logo">
+            @else
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold; font-family: Arial, sans-serif;">
+                    {{ strtoupper(substr($sale->user->name, 0, 1)) }}{{ strtoupper(substr(explode(' ', $sale->user->name)[1] ?? '', 0, 1)) }}
+                </div>
+            @endif
         </div>
         <div class="title">
             <h1>INVOICE</h1>

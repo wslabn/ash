@@ -24,6 +24,7 @@ class User extends Authenticatable
         'role',
         'phone',
         'profile_photo',
+        'business_logo',
         'bio',
         'headline',
         'recruited_by',
@@ -32,6 +33,10 @@ class User extends Authenticatable
         'trial_ends_at',
         'referral_code',
         'settings',
+        'facebook_url',
+        'instagram_url',
+        'youtube_url',
+        'website_url',
     ];
 
     /**

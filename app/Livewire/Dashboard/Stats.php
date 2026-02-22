@@ -59,6 +59,20 @@ class Stats extends Component
             ->limit(5)
             ->get();
 
+        // Recruiting pipeline
+        $recruitingInterest = Customer::where('user_id', $userId)
+            ->where('recruiting_interest', true)
+            ->whereNull('converted_to_user_id')
+            ->count();
+        
+        $convertedConsultants = Customer::where('user_id', $userId)
+            ->whereNotNull('converted_to_user_id')
+            ->count();
+        
+        $activeTeamMembers = \App\Models\User::where('recruited_by', $userId)
+            ->where('status', 'active')
+            ->count();
+
         return view('livewire.dashboard.stats', [
             'totalSales' => $totalSales,
             'salesCount' => $salesCount,
@@ -67,6 +81,9 @@ class Stats extends Component
             'bestProducts' => $bestProducts,
             'totalProfit' => $totalProfit,
             'mostReturned' => $mostReturned,
+            'recruitingInterest' => $recruitingInterest,
+            'convertedConsultants' => $convertedConsultants,
+            'activeTeamMembers' => $activeTeamMembers,
         ]);
     }
 }
