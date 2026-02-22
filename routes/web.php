@@ -16,6 +16,7 @@ use App\Livewire\Categories\Index as CategoriesIndex;
 use App\Livewire\Categories\Create as CategoriesCreate;
 use App\Livewire\Categories\Edit as CategoriesEdit;
 use App\Livewire\Returns\Index as ReturnsIndex;
+use App\Livewire\Admin\Settings as AdminSettings;
 
 Route::view('/', 'welcome');
 
@@ -48,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/categories/{id}/edit', CategoriesEdit::class)->name('categories.edit');
     
     Route::get('/returns', ReturnsIndex::class)->name('returns.index');
+    
+    Route::get('/admin/settings', AdminSettings::class)->name('admin.settings')->middleware('can:admin');
 });
 
 require __DIR__.'/auth.php';

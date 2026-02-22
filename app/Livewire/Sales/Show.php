@@ -7,7 +7,9 @@ use App\Models\Sale;
 use App\Models\SaleReturn;
 use App\Models\ReturnItem;
 use App\Models\Inventory;
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -128,10 +130,21 @@ class Show extends Component
         }
 
         try {
+            // Set mail config from database settings
+            $apiKey = Setting::get('sendgrid.api_key');
+            if ($apiKey) {
+                Config::set('mail.mailers.sendgrid.password', $apiKey);
+                Config::set('mail.default', 'sendgrid');
+            }
+            
+            $fromAddress = Setting::get('mail.from.address', config('mail.from.address'));
+            $fromName = Setting::get('mail.from.name', config('mail.from.name'));
+            
             $pdf = Pdf::loadView('invoices.pdf', ['sale' => $this->sale]);
             
-            \Illuminate\Support\Facades\Mail::send('emails.invoice', ['sale' => $this->sale], function($message) use ($pdf) {
-                $message->to($this->sale->customer->email, $this->sale->customer->full_name)
+            \Illuminate\Support\Facades\Mail::send('emails.invoice', ['sale' => $this->sale], function($message) use ($pdf, $fromAddress, $fromName) {
+                $message->from($fromAddress, $fromName)
+                    ->to($this->sale->customer->email, $this->sale->customer->full_name)
                     ->subject('Invoice ' . $this->sale->sale_number . ' from ' . $this->sale->user->name)
                     ->attachData($pdf->output(), 'invoice-' . $this->sale->sale_number . '.pdf');
             });

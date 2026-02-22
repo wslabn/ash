@@ -63,6 +63,47 @@ php artisan serve
 
 Visit: http://localhost:8000
 
+## Email Configuration (SendGrid)
+
+For production email delivery (invoice emails), configure SendGrid:
+
+1. **Sign up for SendGrid** at [sendgrid.com](https://sendgrid.com)
+   - Free tier: 100 emails/day
+   - Paid: $19.95/mo for 50,000 emails/month
+
+2. **Create API Key** in SendGrid dashboard:
+   - Settings → API Keys → Create API Key
+   - Choose "Full Access" or "Mail Send" permissions
+   - Copy the API key (shown only once)
+
+3. **Verify Sender Email**:
+   - Settings → Sender Authentication
+   - Verify your domain or single sender email
+   - Use format: `noreply@yourdomain.com`
+
+4. **Install SendGrid Package**:
+```bash
+composer require sendgrid/sendgrid
+```
+
+5. **Update `.env` file**:
+```env
+MAIL_MAILER=sendgrid
+SENDGRID_API_KEY=your-sendgrid-api-key-here
+MAIL_FROM_ADDRESS="noreply@ashbrooke.com"
+MAIL_FROM_NAME="Ashbrooke CRM"
+```
+
+**Development/Testing:**
+- Default config uses `MAIL_MAILER=log` (emails written to `storage/logs/laravel.log`)
+- For testing, use [Mailtrap](https://mailtrap.io) or keep log driver
+
+**How it works:**
+- One SendGrid account sends all emails
+- Each consultant's branding (logo, name, contact info) automatically included
+- Customers see personalized invoices with consultant's business logo
+- No additional configuration needed per consultant
+
 ## Default Credentials
 
 **Admin Account:**

@@ -71,6 +71,12 @@ new class extends Component
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        @if(auth()->user()->role === 'admin')
+                            <x-dropdown-link :href="route('admin.settings')" wire:navigate>
+                                {{ __('Platform Settings') }}
+                            </x-dropdown-link>
+                        @endif
+
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">
                             <x-dropdown-link>
