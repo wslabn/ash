@@ -77,6 +77,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Most Returned Products -->
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Most Returned Products</h3>
+                        <a href="{{ route('returns.index') }}" class="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium">View All →</a>
+                    </div>
+                    <div class="space-y-3">
+                        @forelse($mostReturned as $product)
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-900 dark:text-gray-100">{{ $product->name }}</span>
+                                <span class="text-sm text-red-600 dark:text-red-400">{{ $product->return_items_sum_quantity }} returned</span>
+                            </div>
+                        @empty
+                            <p class="text-gray-600 dark:text-gray-400">No returns yet</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

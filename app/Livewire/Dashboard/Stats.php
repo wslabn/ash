@@ -7,6 +7,7 @@ use App\Models\Sale;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Inventory;
+use App\Models\ReturnItem;
 use Illuminate\Support\Facades\DB;
 
 class Stats extends Component
@@ -49,6 +50,14 @@ class Stats extends Component
                     return ($item->unit_price - $item->unit_cost) * $item->quantity;
                 });
             });
+        
+        // Most returned products
+        $mostReturned = Product::where('user_id', $userId)
+            ->withSum('returnItems', 'quantity')
+            ->having('return_items_sum_quantity', '>', 0)
+            ->orderBy('return_items_sum_quantity', 'desc')
+            ->limit(5)
+            ->get();
 
         return view('livewire.dashboard.stats', [
             'totalSales' => $totalSales,
@@ -57,6 +66,7 @@ class Stats extends Component
             'topCustomers' => $topCustomers,
             'bestProducts' => $bestProducts,
             'totalProfit' => $totalProfit,
+            'mostReturned' => $mostReturned,
         ]);
     }
 }
