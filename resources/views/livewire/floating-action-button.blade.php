@@ -63,11 +63,6 @@
 
         <!-- Sales Context Actions -->
         @if($context === 'sales')
-            <button wire:click="$dispatch('openReturnModal')" class="flex items-center gap-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 px-4 py-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 transition w-full text-left">
-                <span class="text-xl">🔄</span>
-                <span class="font-medium">Process Return</span>
-            </button>
-            
             <button wire:click="$dispatch('exportReport')" class="flex items-center gap-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 px-4 py-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 transition w-full text-left">
                 <span class="text-xl">📄</span>
                 <span class="font-medium">Export Report</span>
