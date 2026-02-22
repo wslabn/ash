@@ -29,6 +29,18 @@
             <span class="text-xl">🔄</span>
             <span class="font-medium">Process Return</span>
         </button>
+        
+        <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+        
+        <button @click="Livewire.dispatch('openFeedbackModal', { type: 'bug' })" class="flex items-center gap-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 px-4 py-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 transition w-full text-left">
+            <span class="text-xl">🐛</span>
+            <span class="font-medium">Report Bug</span>
+        </button>
+        
+        <button @click="Livewire.dispatch('openFeedbackModal', { type: 'feature' })" class="flex items-center gap-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 px-4 py-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 transition w-full text-left">
+            <span class="text-xl">💡</span>
+            <span class="font-medium">Request Feature</span>
+        </button>
 
         <!-- Customer Context Actions -->
         @if($context === 'customer' && $customerId)
