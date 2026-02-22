@@ -8,6 +8,7 @@ use App\Models\SaleItem;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Inventory;
+use App\Services\DiscordNotificationService;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 
@@ -161,8 +162,16 @@ class Create extends Component
                     ->first();
                 if ($inventory) {
                     $inventory->decrement('quantity', $item['quantity']);
+                    
+                    // Low stock alert
+                    if ($inventory->quantity <= 5 && $inventory->quantity > 0) {
+                        DiscordNotificationService::sendLowStockAlert(auth()->user(), $product, $inventory->quantity);
+                    }
                 }
             }
+            
+            // Check for milestones
+            $this->checkMilestones($sale);
 
             DB::commit();
             session()->flash('message', 'Sale created successfully!');
@@ -179,6 +188,27 @@ class Create extends Component
         $count = Sale::where('user_id', auth()->id())->count();
         $number = $startingNumber + $count;
         return str_pad($number, max(4, strlen($number)), '0', STR_PAD_LEFT);
+    }
+
+    private function checkMilestones($sale)
+    {
+        $user = auth()->user();
+        $totalSales = Sale::where('user_id', $user->id)->count();
+        $totalRevenue = Sale::where('user_id', $user->id)->sum('total_amount');
+        $totalCustomers = Customer::where('user_id', $user->id)->count();
+        
+        // Sales count milestones
+        if (in_array($totalSales, [10, 25, 50, 100, 250, 500, 1000])) {
+            DiscordNotificationService::sendMilestone($user, 'sales', "🎉 {$totalSales} sales completed!");
+        }
+        
+        // Revenue milestones
+        $revenueMilestones = [1000, 5000, 10000, 25000, 50000, 100000];
+        foreach ($revenueMilestones as $milestone) {
+            if ($totalRevenue >= $milestone && ($totalRevenue - $sale->total_amount) < $milestone) {
+                DiscordNotificationService::sendMilestone($user, 'sales', "💰 $" . number_format($milestone) . " in total revenue!");
+            }
+        }
     }
 
     public function render()

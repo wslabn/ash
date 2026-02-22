@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\CustomerNote;
 use App\Models\CustomerTag;
 use App\Models\User;
+use App\Services\DiscordNotificationService;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Hash;
@@ -79,10 +80,17 @@ class Show extends Component
 
     public function toggleRecruitingInterest()
     {
+        $wasInterested = $this->customer->recruiting_interest;
         $this->customer->update([
             'recruiting_interest' => !$this->customer->recruiting_interest
         ]);
         $this->customer->refresh();
+        
+        // Send notification when interest is marked
+        if (!$wasInterested && $this->customer->recruiting_interest) {
+            DiscordNotificationService::sendRecruitingNotification(auth()->user(), $this->customer, 'interest');
+        }
+        
         session()->flash('message', 'Recruiting interest updated.');
     }
 
@@ -114,6 +122,9 @@ class Show extends Component
             'converted_to_user_id' => $user->id,
             'recruiting_interest' => false,
         ]);
+        
+        // Send conversion notification
+        DiscordNotificationService::sendRecruitingNotification(auth()->user(), $this->customer, 'converted');
 
         $this->customer->refresh();
         session()->flash('message', "Consultant created! Email: {$user->email} | Password: {$password}");

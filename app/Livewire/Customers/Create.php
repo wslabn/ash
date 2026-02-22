@@ -4,6 +4,7 @@ namespace App\Livewire\Customers;
 
 use Livewire\Component;
 use App\Models\Customer;
+use App\Services\DiscordNotificationService;
 
 class Create extends Component
 {
@@ -29,7 +30,7 @@ class Create extends Component
     {
         $this->validate();
 
-        Customer::create([
+        $customer = Customer::create([
             'user_id' => auth()->id(),
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -42,6 +43,12 @@ class Create extends Component
             'how_met' => $this->how_met,
             'notes' => $this->notes,
         ]);
+        
+        // Check for customer count milestone
+        $totalCustomers = Customer::where('user_id', auth()->id())->count();
+        if (in_array($totalCustomers, [10, 25, 50, 100, 250, 500, 1000])) {
+            DiscordNotificationService::sendMilestone(auth()->user(), 'customers', "👥 {$totalCustomers} customers!");
+        }
 
         session()->flash('message', 'Customer created successfully.');
         return redirect()->route('customers.index');
