@@ -37,6 +37,7 @@ class User extends Authenticatable
         'instagram_url',
         'youtube_url',
         'website_url',
+        'discord_invite_url',
     ];
 
     /**

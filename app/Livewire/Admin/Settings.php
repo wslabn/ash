@@ -15,6 +15,8 @@ class Settings extends Component
     public $twilio_account_sid;
     public $twilio_auth_token;
     public $twilio_phone_number;
+    public $discord_community_invite;
+    public $discord_feedback_webhook;
 
     public function mount()
     {
@@ -28,6 +30,8 @@ class Settings extends Component
         $this->twilio_account_sid = Setting::get('twilio.account_sid', '');
         $this->twilio_auth_token = Setting::get('twilio.auth_token', '');
         $this->twilio_phone_number = Setting::get('twilio.phone_number', '');
+        $this->discord_community_invite = Setting::get('discord.community_invite', '');
+        $this->discord_feedback_webhook = Setting::get('discord.feedback_webhook', '');
     }
 
     public function save()
@@ -43,6 +47,8 @@ class Settings extends Component
         Setting::set('twilio.account_sid', $this->twilio_account_sid, true);
         Setting::set('twilio.auth_token', $this->twilio_auth_token, true);
         Setting::set('twilio.phone_number', $this->twilio_phone_number);
+        Setting::set('discord.community_invite', $this->discord_community_invite);
+        Setting::set('discord.feedback_webhook', $this->discord_feedback_webhook, true);
 
         session()->flash('message', 'Settings saved successfully!');
     }

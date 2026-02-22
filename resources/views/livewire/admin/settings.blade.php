@@ -65,6 +65,28 @@
                         </div>
                     </div>
 
+                    <!-- Discord Settings -->
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-8">
+                        <h3 class="text-lg font-medium mb-4">Discord Community</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Official Ashbrooke CRM community for support, tips, and feature requests</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Community Discord Invite Link</label>
+                                <input type="url" wire:model="discord_community_invite" 
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700"
+                                    placeholder="https://discord.gg/yourlink">
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Consultants will see "Community" link in navigation</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Feedback Webhook URL</label>
+                                <input type="password" wire:model="discord_feedback_webhook" 
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700"
+                                    placeholder="https://discord.com/api/webhooks/...">
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Bug reports and feature requests will post here</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="flex justify-end">
                         <button type="submit" 
                             class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition">

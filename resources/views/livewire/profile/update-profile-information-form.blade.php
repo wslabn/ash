@@ -19,6 +19,7 @@ new class extends Component
     public string $instagram_url = '';
     public string $youtube_url = '';
     public string $website_url = '';
+    public string $discord_invite_url = '';
     public $profile_photo;
     public $business_logo;
 
@@ -34,6 +35,7 @@ new class extends Component
         $this->instagram_url = Auth::user()->instagram_url ?? '';
         $this->youtube_url = Auth::user()->youtube_url ?? '';
         $this->website_url = Auth::user()->website_url ?? '';
+        $this->discord_invite_url = Auth::user()->discord_invite_url ?? '';
     }
 
     /**
@@ -51,6 +53,7 @@ new class extends Component
             'instagram_url' => ['nullable', 'url', 'max:255'],
             'youtube_url' => ['nullable', 'url', 'max:255'],
             'website_url' => ['nullable', 'url', 'max:255'],
+            'discord_invite_url' => ['nullable', 'url', 'max:255'],
             'profile_photo' => ['nullable', 'image', 'max:2048'],
             'business_logo' => ['nullable', 'image', 'max:2048'],
         ]);
@@ -63,6 +66,7 @@ new class extends Component
             'instagram_url' => $validated['instagram_url'],
             'youtube_url' => $validated['youtube_url'],
             'website_url' => $validated['website_url'],
+            'discord_invite_url' => $validated['discord_invite_url'],
         ]);
 
         // Handle profile photo upload
@@ -183,6 +187,13 @@ new class extends Component
             <x-input-label for="website_url" :value="__('Website URL')" />
             <x-text-input wire:model="website_url" id="website_url" name="website_url" type="url" placeholder="https://yourwebsite.com" class="mt-1 block w-full" />
             <x-input-error class="mt-2" :messages="$errors->get('website_url')" />
+        </div>
+
+        <div>
+            <x-input-label for="discord_invite_url" :value="__('Team Discord Invite Link')" />
+            <x-text-input wire:model="discord_invite_url" id="discord_invite_url" name="discord_invite_url" type="url" placeholder="https://discord.gg/yourlink" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('discord_invite_url')" />
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Your team's Discord server invite link for team chat.</p>
         </div>
 
         <div>

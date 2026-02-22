@@ -1,10 +1,20 @@
 <?php
 
 use App\Livewire\Actions\Logout;
+use App\Models\Setting;
 use Livewire\Volt\Component;
 
 new class extends Component
 {
+    public $communityInvite = '';
+    public $teamChatUrl = '';
+
+    public function mount()
+    {
+        $this->communityInvite = Setting::get('discord.community_invite', '');
+        $this->teamChatUrl = auth()->user()->discord_invite_url ?? '';
+    }
+
     /**
      * Log the current user out of the application.
      */
@@ -45,6 +55,16 @@ new class extends Component
                     <x-nav-link :href="route('returns.index')" :active="request()->routeIs('returns.*')" wire:navigate>
                         {{ __('Returns') }}
                     </x-nav-link>
+                    @if($communityInvite)
+                        <a href="{{ $communityInvite }}" target="_blank" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                            💬 Community
+                        </a>
+                    @endif
+                    @if($teamChatUrl)
+                        <a href="{{ $teamChatUrl }}" target="_blank" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                            👥 Team Chat
+                        </a>
+                    @endif
                 </div>
             </div>
 

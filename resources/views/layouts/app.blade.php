@@ -38,6 +38,21 @@
             
             <!-- Process Return Modal -->
             <livewire:process-return />
+            
+            <!-- Feedback Modal -->
+            <livewire:feedback-modal />
+            
+            <!-- Feedback Button -->
+            <div class="fixed bottom-4 left-4 z-40 flex flex-col gap-2" x-data>
+                <button @click="Livewire.dispatch('openFeedbackModal', { type: 'bug' })" 
+                    class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg shadow-lg transition">
+                    🐛 Report Bug
+                </button>
+                <button @click="Livewire.dispatch('openFeedbackModal', { type: 'feature' })" 
+                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg shadow-lg transition">
+                    💡 Request Feature
+                </button>
+            </div>
         </div>
         @livewireScripts
     </body>
