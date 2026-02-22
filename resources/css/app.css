@@ -4,13 +4,29 @@
 
 @media print {
     /* Hide navigation, buttons, and non-essential elements */
-    nav, button, .no-print {
+    nav, button, .no-print, header {
         display: none !important;
+    }
+    
+    /* Show print-only elements */
+    .print\:block {
+        display: block !important;
     }
     
     /* Show only the invoice content */
     body {
         background: white;
+        color: black;
+    }
+    
+    /* Remove dark mode styles */
+    .dark\:bg-gray-800,
+    .dark\:text-gray-100,
+    .dark\:text-gray-200,
+    .dark\:border-gray-700 {
+        background: white !important;
+        color: black !important;
+        border-color: #e5e7eb !important;
     }
     
     /* Ensure proper page breaks */

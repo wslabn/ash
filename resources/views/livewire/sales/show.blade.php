@@ -23,6 +23,33 @@
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
+                    <!-- Invoice Header (visible on print) -->
+                    <div class="hidden print:block mb-8 pb-6 border-b border-gray-300">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                @if($sale->user->business_logo)
+                                    <img src="{{ Storage::url($sale->user->business_logo) }}" alt="Logo" class="w-16 h-16 rounded-full object-cover">
+                                @else
+                                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl font-bold">
+                                        {{ strtoupper(substr($sale->user->name, 0, 1)) }}
+                                    </div>
+                                @endif
+                                <div>
+                                    <h1 class="text-2xl font-bold text-gray-900">{{ $sale->user->name }}</h1>
+                                    <p class="text-gray-600">{{ $sale->user->email }}</p>
+                                    @if($sale->user->phone)
+                                        <p class="text-gray-600">{{ $sale->user->phone }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <h2 class="text-3xl font-bold text-gray-900">INVOICE</h2>
+                                <p class="text-gray-600">{{ $sale->sale_number }}</p>
+                                <p class="text-gray-600">{{ $sale->created_at->format('M d, Y') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="flex justify-between items-start mb-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">{{ $sale->sale_number }}</h2>
