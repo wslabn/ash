@@ -79,15 +79,15 @@
 
 ## Phase 2: Advanced CRM Features ⏳
 **Goal:** Enhanced customer insights and inventory management  
-**Status:** In Progress (9/15 tasks)
+**Status:** In Progress (11/15 tasks)
 **Started:** February 21, 2026
 
-### 2.1 Customer Detail Pages (4/5) ⏳
+### 2.1 Customer Detail Pages (5/5) ✅
 - [x] Customer detail page with contact info
 - [x] Purchase history display
 - [x] Customer stats (total spent, orders, last purchase)
 - [x] Customer notes/timeline
-- [ ] Customer tags management
+- [x] Customer tags management
 
 ### 2.2 Product Management (3/5) ⏳
 - [x] Product categories CRUD
@@ -96,9 +96,9 @@
 - [ ] Low stock notifications
 - [ ] Bulk product import
 
-### 2.3 Sales Enhancements (2/5) ⏳
+### 2.3 Sales Enhancements (3/5) ⏳
 - [x] Invoice PDF generation
-- [ ] Email invoices
+- [x] Email invoices
 - [ ] Print invoices
 - [ ] Partial payments
 - [ ] Sale notes/comments
@@ -333,10 +333,10 @@
 
 ### Summary
 - **Total Tasks:** 187 (162 original + 10 Phase 1.5 + 15 Phase 2)
-- **Completed:** 55 (36 Phase 1 + 10 Phase 1.5 + 9 Phase 2)
-- **In Progress:** 6 (Phase 2)
-- **Remaining:** 122
-- **Overall Progress:** 29%
+- **Completed:** 57 (36 Phase 1 + 10 Phase 1.5 + 11 Phase 2)
+- **In Progress:** 4 (Phase 2)
+- **Remaining:** 120
+- **Overall Progress:** 30%
 
 ### Phase Status
 - ✅ Planning: Complete
@@ -354,13 +354,20 @@
 ## Recent Updates
 
 ### February 22, 2026
+- ✅ Customer tags management with toggle buttons
+- ✅ Email invoices with PDF attachment
+- ✅ Recruiting pipeline dashboard card
+- ✅ Profile photo and business logo uploads
+- ✅ Phone and social media fields (Facebook, Instagram, YouTube, Website)
+- ✅ Business logo on invoices with initials fallback
+- ✅ Sale number settings and dynamic expansion
 - ✅ Customer notes/timeline already implemented
 - ✅ Product detail page with sales history and stats
 - ✅ Invoice PDF generation with download button
 - ✅ Product names now clickable to view details
 - ✅ Fixed wife's feedback: return workflow, button visibility, Venmo payment, real-time totals
 - ✅ Created standalone landing page with logo
-- 🚀 Phase 2 Progress: 9/15 tasks complete (60%)
+- 🚀 Phase 2 Progress: 11/15 tasks complete (73%)
 
 ### February 21, 2026
 - ✅ Phase 1 Complete: All foundation features built

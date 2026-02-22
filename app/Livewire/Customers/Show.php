@@ -5,6 +5,7 @@ namespace App\Livewire\Customers;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\CustomerNote;
+use App\Models\CustomerTag;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -25,7 +26,7 @@ class Show extends Component
 
     public function mount($id)
     {
-        $this->customer = Customer::with(['sales.items.product', 'customerNotes.user', 'convertedToUser'])
+        $this->customer = Customer::with(['sales.items.product', 'customerNotes.user', 'convertedToUser', 'tags'])
             ->where('user_id', auth()->id())
             ->findOrFail($id);
         
@@ -143,8 +144,19 @@ class Show extends Component
         $this->customer->load('customerNotes.user');
     }
 
+    public function toggleTag($tagId)
+    {
+        if ($this->customer->tags->contains($tagId)) {
+            $this->customer->tags()->detach($tagId);
+        } else {
+            $this->customer->tags()->attach($tagId);
+        }
+        $this->customer->load('tags');
+    }
+
     public function render()
     {
-        return view('livewire.customers.show');
+        $availableTags = CustomerTag::where('user_id', auth()->id())->get();
+        return view('livewire.customers.show', ['availableTags' => $availableTags]);
     }
 }

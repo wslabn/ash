@@ -35,7 +35,20 @@
             <!-- Customer Info Card -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Contact Information</h3>
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Contact Information</h3>
+                        <div class="flex flex-wrap gap-2">
+                            @foreach($availableTags as $tag)
+                                <button 
+                                    wire:click="toggleTag({{ $tag->id }})"
+                                    class="px-3 py-1 rounded-full text-xs font-medium transition {{ $customer->tags->contains($tag->id) ? 'opacity-100' : 'opacity-50 hover:opacity-75' }}"
+                                    style="background-color: {{ $tag->color }}20; color: {{ $tag->color }}; border: 1px solid {{ $tag->color }};"
+                                >
+                                    {{ $tag->name }}
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>

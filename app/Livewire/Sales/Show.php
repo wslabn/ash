@@ -120,6 +120,28 @@ class Show extends Component
         }, 'invoice-' . $this->sale->sale_number . '.pdf');
     }
 
+    public function emailInvoice()
+    {
+        if (!$this->sale->customer->email) {
+            session()->flash('error', 'Customer does not have an email address.');
+            return;
+        }
+
+        try {
+            $pdf = Pdf::loadView('invoices.pdf', ['sale' => $this->sale]);
+            
+            \Illuminate\Support\Facades\Mail::send('emails.invoice', ['sale' => $this->sale], function($message) use ($pdf) {
+                $message->to($this->sale->customer->email, $this->sale->customer->full_name)
+                    ->subject('Invoice ' . $this->sale->sale_number . ' from ' . $this->sale->user->name)
+                    ->attachData($pdf->output(), 'invoice-' . $this->sale->sale_number . '.pdf');
+            });
+
+            session()->flash('message', 'Invoice emailed to ' . $this->sale->customer->email);
+        } catch (\Exception $e) {
+            session()->flash('error', 'Failed to send email: ' . $e->getMessage());
+        }
+    }
+
     public function render()
     {
         return view('livewire.sales.show');
