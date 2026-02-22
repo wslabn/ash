@@ -28,6 +28,11 @@
                 </header>
             @endif
 
+            <!-- Page Content -->
+            <main>
+                {{ $slot }}
+            </main>
+
             <!-- Floating Action Button -->
             <livewire:floating-action-button />
             
