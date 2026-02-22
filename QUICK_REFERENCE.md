@@ -33,11 +33,17 @@
 - **Grace Period:** 14 days on failed payments
 
 #### Communication
-- **SMS:** Twilio (shared - admin account only)
-- **Email Transactional:** Namecheap email
+- **SMS:** Twilio (shared - admin configures in platform settings)
+- **Email Transactional:** SendGrid (shared - admin configures in platform settings)
 - **Email Marketing:** SendGrid with campaign tools
 - **Push Notifications:** Yes (browser-based)
 - **Limits:** 100 SMS/day, 500 SMS/month per consultant (configurable)
+
+#### Discord
+- **Community:** Official Ashbrooke CRM Discord server for all consultants
+- **Team Chat:** Each consultant can set their own team Discord invite
+- **Feedback:** Bug reports and feature requests post to Discord webhook
+- **Notifications:** Milestones, low stock alerts, recruiting updates
 
 #### AI & Analytics
 - **AI Provider:** Groq API
@@ -71,10 +77,11 @@
 
 #### Sales
 - **Types:** Direct, party, online
-- **Payments:** Stripe, cash, check, invoice
+- **Payments:** Stripe, cash, check, card, venmo, paypal, invoice
 - **Features:** Discounts, tax calculation, shipping, returns
 - **Inventory:** Auto-deduction on sale
-- **Documents:** Invoices, receipts, packing slips (PDF)
+- **Invoices:** Browser print (save as PDF or print)
+- **Sale Numbers:** Customizable starting point (1, 100, 1000, 10000)
 
 #### Events
 - **Types:** Parties, beauty consultations
@@ -133,12 +140,23 @@
 - **Required:** Stripe, Twilio, SendGrid, Groq
 - **Optional:** Google Calendar, Outlook, future tax/shipping APIs
 
-### Notifications
+#### Notifications
 
-#### Channels
+**Discord Milestones:**
+- Sales count: 10, 25, 50, 100, 250, 500, 1000
+- Revenue: $1k, $5k, $10k, $25k, $50k, $100k
+- Customers: 10, 25, 50, 100, 250, 500, 1000
+
+**Discord Alerts:**
+- Low stock (5 or below after sale)
+- Recruiting interest shown
+- Customer converted to consultant
+
+**Channels**
 - **Email:** Transactional + marketing
 - **SMS:** Reminders, alerts
 - **Push:** Browser notifications
+- **Discord:** Milestones, alerts, feedback
 
 #### Preferences
 - **Granular:** Per notification type
@@ -198,6 +216,19 @@
 - **Content:** Consultant contact info, no logos
 
 ### Additional Features
+
+#### Admin Settings Page
+- **SendGrid:** API key, from address, from name
+- **Twilio:** Account SID, auth token, phone number
+- **Discord:** Community invite, feedback webhook
+- **No .env editing required** - all configured through UI
+
+#### Profile Enhancements
+- **Photos:** Profile photo and business logo uploads
+- **Contact:** Phone number
+- **Social Media:** Facebook, Instagram, YouTube, Website URLs
+- **Team Chat:** Discord invite link for team
+- **Business Settings:** Sale number starting point
 
 #### Search
 - **Type:** Global (customers, products, orders, events)
@@ -320,6 +351,6 @@
 
 ---
 
-**Quick Reference Version:** 1.0  
-**Last Updated:** 2024  
+**Quick Reference Version:** 2.0  
+**Last Updated:** February 22, 2026  
 **For Questions:** Refer to PROJECT_PLAN.md for full details
