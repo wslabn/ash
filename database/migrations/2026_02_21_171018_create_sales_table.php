@@ -25,7 +25,7 @@ return new class extends Migration
             $table->decimal('shipping_amount', 10, 2)->default(0);
             $table->decimal('total_amount', 10, 2)->default(0);
             $table->enum('payment_status', ['pending', 'paid', 'partial', 'refunded'])->default('pending');
-            $table->enum('payment_method', ['stripe', 'cash', 'check', 'invoice'])->default('cash');
+            $table->enum('payment_method', ['stripe', 'cash', 'check', 'invoice', 'card', 'venmo', 'paypal'])->default('cash');
             $table->string('stripe_payment_intent_id')->nullable();
             $table->text('notes')->nullable();
             $table->timestamp('sold_at')->useCurrent();

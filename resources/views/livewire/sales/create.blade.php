@@ -66,7 +66,7 @@
                         <div class="mb-6">
                             <div class="flex justify-between items-center mb-4">
                                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Line Items</h3>
-                                <button type="button" wire:click="addItem" class="bg-purple-accent hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                <button type="button" wire:click="addItem" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                                     + Add Item
                                 </button>
                             </div>
@@ -83,11 +83,11 @@
                                         @error("items.$index.product_id") <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </div>
                                     <div class="col-span-2">
-                                        <input wire:model="items.{{ $index }}.quantity" type="number" min="1" placeholder="Qty" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+                                        <input wire:model.live="items.{{ $index }}.quantity" type="number" min="1" placeholder="Qty" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
                                         @error("items.$index.quantity") <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </div>
                                     <div class="col-span-2">
-                                        <input wire:model="items.{{ $index }}.unit_price" type="number" step="0.01" placeholder="Price" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+                                        <input wire:model.live="items.{{ $index }}.unit_price" type="number" step="0.01" placeholder="Price" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
                                         @error("items.$index.unit_price") <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </div>
                                     <div class="col-span-2 flex items-center">
@@ -149,7 +149,7 @@
                             <a href="{{ route('sales.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded">
                                 Cancel
                             </a>
-                            <button type="submit" class="bg-mary-kay-pink hover:bg-pink-700 text-white font-bold py-2 px-6 rounded">
+                            <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded">
                                 Create Sale
                             </button>
                         </div>

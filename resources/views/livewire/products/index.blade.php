@@ -40,8 +40,12 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                                 @forelse($products as $product)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $product->name }}</td>
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <a href="{{ route('products.show', $product->id) }}" class="text-purple-600 dark:text-purple-400 hover:underline font-medium">
+                                                {{ $product->name }}
+                                            </a>
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $product->sku }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">${{ number_format($product->base_cost, 2) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-green-600 dark:text-green-400 font-semibold">${{ number_format($product->base_retail_price, 2) }}</td>

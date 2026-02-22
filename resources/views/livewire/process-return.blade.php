@@ -64,7 +64,7 @@
                                     <div class="flex items-start gap-4">
                                         <input 
                                             type="checkbox" 
-                                            wire:model="returnItems.{{ $item->id }}.selected"
+                                            wire:model.live="returnItems.{{ $item->id }}.selected"
                                             class="mt-1 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                                         >
                                         <div class="flex-1">

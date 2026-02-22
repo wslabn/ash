@@ -116,7 +116,7 @@ class TestDataSeeder extends Seeder
                 'user_id' => $user->id,
                 'customer_id' => $customer->id,
                 'sale_number' => 'SALE-' . str_pad($index + 1, 3, '0', STR_PAD_LEFT),
-                'sale_type' => $index === 0 ? 'party' : 'retail',
+                'sale_type' => $index === 0 ? 'party' : 'direct',
                 'subtotal' => 46.00,
                 'tax_amount' => 3.68,
                 'total_amount' => 49.68,

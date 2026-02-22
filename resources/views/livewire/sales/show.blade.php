@@ -28,12 +28,17 @@
                             <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">{{ $sale->sale_number }}</h2>
                             <p class="text-gray-600 dark:text-gray-400">{{ $sale->created_at->format('F d, Y g:i A') }}</p>
                         </div>
-                        <span class="px-3 py-1 rounded-full text-sm font-medium
-                            @if($sale->payment_status === 'paid') bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
-                            @elseif($sale->payment_status === 'pending') bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
-                            @else bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200 @endif">
-                            {{ ucfirst($sale->payment_status) }}
-                        </span>
+                        <div class="flex items-center gap-2">
+                            <button wire:click="downloadPdf" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded font-bold text-sm">
+                                📄 Download PDF
+                            </button>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium
+                                @if($sale->payment_status === 'paid') bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
+                                @elseif($sale->payment_status === 'pending') bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
+                                @else bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200 @endif">
+                                {{ ucfirst($sale->payment_status) }}
+                            </span>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-6 mb-6 pb-6 border-b dark:border-gray-700">

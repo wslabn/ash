@@ -10,6 +10,7 @@ use App\Models\Inventory;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 #[Layout('layouts.app')]
 class Show extends Component
@@ -109,6 +110,14 @@ class Show extends Component
             DB::rollBack();
             session()->flash('error', 'Error processing return: ' . $e->getMessage());
         }
+    }
+
+    public function downloadPdf()
+    {
+        $pdf = Pdf::loadView('invoices.pdf', ['sale' => $this->sale]);
+        return response()->streamDownload(function() use ($pdf) {
+            echo $pdf->output();
+        }, 'invoice-' . $this->sale->sale_number . '.pdf');
     }
 
     public function render()

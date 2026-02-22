@@ -8,6 +8,7 @@ use App\Livewire\Customers\Show as CustomersShow;
 use App\Livewire\Products\Index as ProductsIndex;
 use App\Livewire\Products\Create as ProductsCreate;
 use App\Livewire\Products\Edit as ProductsEdit;
+use App\Livewire\Products\Show as ProductsShow;
 use App\Livewire\Sales\Index as SalesIndex;
 use App\Livewire\Sales\Create as SalesCreate;
 use App\Livewire\Sales\Show as SalesShow;
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/products', ProductsIndex::class)->name('products.index');
     Route::get('/products/create', ProductsCreate::class)->name('products.create');
+    Route::get('/products/{id}', ProductsShow::class)->name('products.show');
     Route::get('/products/{id}/edit', ProductsEdit::class)->name('products.edit');
     
     Route::get('/sales', SalesIndex::class)->name('sales.index');
