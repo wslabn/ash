@@ -15,12 +15,9 @@
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
+                    <div class="mb-4">
                         <input wire:model.live="search" type="text" placeholder="Search customers..." 
                             class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
-                        <a href="{{ route('customers.create') }}" class="bg-mary-kay-pink hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
-                            Add Customer
-                        </a>
                     </div>
 
                     <div class="overflow-x-auto">

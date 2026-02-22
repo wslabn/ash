@@ -5,9 +5,13 @@
     <title>Invoice {{ $sale->sale_number }}</title>
     <style>
         body { font-family: Arial, sans-serif; font-size: 14px; color: #333; }
-        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #667eea; padding-bottom: 20px; }
-        .header h1 { color: #667eea; margin: 0; font-size: 32px; }
-        .header p { margin: 5px 0; color: #666; }
+        .header { display: table; width: 100%; margin-bottom: 15px; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+        .header > div { display: table-cell; vertical-align: middle; }
+        .header .logo-cell { width: 80px; }
+        .header .logo { width: 60px; height: 60px; border-radius: 50%; display: block; }
+        .header .title { text-align: center; }
+        .header h1 { color: #667eea; margin: 0; font-size: 24px; }
+        .header .consultant-info { text-align: right; font-size: 11px; color: #666; line-height: 1.3; width: 200px; }
         .info-section { margin-bottom: 30px; }
         .info-section table { width: 100%; }
         .info-section td { padding: 5px 0; }
@@ -25,14 +29,21 @@
 </head>
 <body>
     <div class="header">
-        <h1>INVOICE</h1>
-        <p>{{ $sale->user->name }}</p>
-        @if($sale->user->phone)
-            <p>{{ $sale->user->phone }}</p>
-        @endif
-        @if($sale->user->email)
-            <p>{{ $sale->user->email }}</p>
-        @endif
+        <div class="logo-cell">
+            <img src="{{ public_path('images/ashbrookeLogo.png') }}" alt="Logo" class="logo">
+        </div>
+        <div class="title">
+            <h1>INVOICE</h1>
+        </div>
+        <div class="consultant-info">
+            <div><strong>{{ $sale->user->name }}</strong></div>
+            @if($sale->user->phone)
+                <div>{{ $sale->user->phone }}</div>
+            @endif
+            @if($sale->user->email)
+                <div>{{ $sale->user->email }}</div>
+            @endif
+        </div>
     </div>
 
     <div class="info-section">
@@ -42,7 +53,7 @@
                     <table>
                         <tr>
                             <td class="label">Invoice #:</td>
-                            <td>{{ $sale->sale_number }}</td>
+                            <td><strong>{{ $sale->sale_number }}</strong></td>
                         </tr>
                         <tr>
                             <td class="label">Date:</td>

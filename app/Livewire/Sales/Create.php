@@ -132,7 +132,7 @@ class Create extends Component
             $sale = Sale::create([
                 'user_id' => auth()->id(),
                 'customer_id' => $this->customer_id,
-                'sale_number' => 'SALE-' . str_pad(Sale::where('user_id', auth()->id())->count() + 1, 3, '0', STR_PAD_LEFT),
+                'sale_number' => $this->generateSaleNumber(),
                 'sale_type' => $this->sale_type,
                 'subtotal' => $subtotal,
                 'tax_amount' => $tax,
@@ -171,6 +171,14 @@ class Create extends Component
             DB::rollBack();
             session()->flash('error', 'Error creating sale: ' . $e->getMessage());
         }
+    }
+
+    private function generateSaleNumber()
+    {
+        $startingNumber = auth()->user()->getSetting('sale_starting_number', 1);
+        $count = Sale::where('user_id', auth()->id())->count();
+        $number = $startingNumber + $count;
+        return str_pad($number, max(4, strlen($number)), '0', STR_PAD_LEFT);
     }
 
     public function render()

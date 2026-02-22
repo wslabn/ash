@@ -31,6 +31,7 @@ class User extends Authenticatable
         'status',
         'trial_ends_at',
         'referral_code',
+        'settings',
     ];
 
     /**
@@ -56,7 +57,21 @@ class User extends Authenticatable
             'trial_ends_at' => 'datetime',
             'suspended_at' => 'datetime',
             'cancelled_at' => 'datetime',
+            'settings' => 'array',
         ];
+    }
+
+    public function getSetting($key, $default = null)
+    {
+        return $this->settings[$key] ?? $default;
+    }
+
+    public function setSetting($key, $value)
+    {
+        $settings = $this->settings ?? [];
+        $settings[$key] = $value;
+        $this->settings = $settings;
+        $this->save();
     }
 
     public function isAdmin(): bool
