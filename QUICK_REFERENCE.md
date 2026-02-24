@@ -99,9 +99,11 @@
 
 #### Recruiting
 - **Pipeline:** Prospect → Contacted → Interested → Applied → Recruited
-- **Landing Pages:** Per consultant (limited customization)
-- **Lead Capture:** Contact form auto-creates leads
-- **Automation:** Follow-up reminders
+- **Landing Pages:** Per consultant at custom URLs (ashbrooke.com/ashley)
+- **Lead Capture:** Contact form auto-creates customers
+- **Customization:** Photo/logo, headline, bio, social links
+- **Spam Protection:** No phone/email displayed publicly
+- **Automation:** Follow-up reminders (planned)
 - **Access:** All consultants manage own pipeline
 
 ### User Management
@@ -229,6 +231,7 @@
 - **Social Media:** Facebook, Instagram, YouTube, Website URLs
 - **Team Chat:** Discord invite link for team
 - **Business Settings:** Sale number starting point
+- **Landing Page:** Custom slug, headline, bio, enable/disable toggle
 
 #### Search
 - **Type:** Global (customers, products, orders, events)
@@ -351,6 +354,6 @@
 
 ---
 
-**Quick Reference Version:** 2.0  
-**Last Updated:** February 22, 2026  
+**Quick Reference Version:** 3.0  
+**Last Updated:** February 24, 2026  
 **For Questions:** Refer to PROJECT_PLAN.md for full details

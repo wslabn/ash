@@ -199,9 +199,10 @@
 
 ---
 
-## Phase 5: Team & Recruiting ⏸️
+## Phase 5: Team & Recruiting ⏳
 **Goal:** Build team management and recruiting pipeline  
-**Status:** Not Started (0/23 tasks)
+**Status:** In Progress (5/23 tasks)
+**Started:** February 24, 2026
 
 ### 5.1 Recruiting Pipeline (0/6)
 - [ ] Lead stages and management
@@ -211,12 +212,12 @@
 - [ ] Lead conversion tracking
 - [ ] Available to all consultants
 
-### 5.2 Public Landing Pages (0/5)
-- [ ] Landing page template design
-- [ ] Per-consultant URL routing
-- [ ] Limited customization (photo, headline, bio)
-- [ ] Contact form with lead capture
-- [ ] Phone number display
+### 5.2 Public Landing Pages (5/5) ✅
+- [x] Landing page template design
+- [x] Per-consultant URL routing
+- [x] Limited customization (photo, headline, bio)
+- [x] Contact form with lead capture
+- [x] Social media links display
 
 ### 5.3 Team Structure (0/5)
 - [ ] Genealogy tree database design
@@ -334,10 +335,10 @@
 
 ### Summary
 - **Total Tasks:** 187 (162 original + 10 Phase 1.5 + 15 Phase 2)
-- **Completed:** 57 (36 Phase 1 + 10 Phase 1.5 + 11 Phase 2)
+- **Completed:** 62 (36 Phase 1 + 10 Phase 1.5 + 11 Phase 2 + 5 Phase 5.2)
 - **Skipped/Deferred:** 4 (Phase 2 - not needed for current use case)
-- **Remaining:** 116
-- **Overall Progress:** 30%
+- **Remaining:** 111
+- **Overall Progress:** 33%
 
 ### Phase Status
 - ✅ Planning: Complete
@@ -346,13 +347,23 @@
 - ✅ Phase 2: Complete (11/15 - 4 skipped)
 - ⏸️ Phase 3: Not Started
 - ⏸️ Phase 4: Not Started
-- ⏸️ Phase 5: Not Started
+- ⏳ Phase 5: In Progress (5/23)
 - ⏸️ Phase 6: Not Started
 - ⏸️ Phase 7: Not Started
 
 ---
 
 ## Recent Updates
+
+### February 24, 2026 - Landing Pages Complete! 🎉
+- ✅ **Public Landing Pages**: Consultants get their own page (ashbrooke.com/ashley)
+- ✅ **Contact Form**: Auto-creates customers with "Landing Page" source
+- ✅ **Beautiful Design**: Gradient hero, photo/logo, bio, headline, social links
+- ✅ **Profile Integration**: Slug, bio, headline, landing page toggle in profile
+- ✅ **Spam Protection**: No phone/email displayed, form only
+- ✅ **Root Page**: Replaced Laravel welcome with Ashbrooke CRM landing page
+- ✅ **Route Protection**: Excluded auth/app routes from landing page catch-all
+- 🎊 Phase 5.2 Complete: 5/5 tasks
 
 ### February 22, 2026 - Phase 2 Complete! 🎉
 - ✅ **Admin Settings Page**: Platform-wide settings for SendGrid, Twilio, Discord (no more .env editing!)
