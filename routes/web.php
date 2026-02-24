@@ -17,6 +17,10 @@ use App\Livewire\Categories\Create as CategoriesCreate;
 use App\Livewire\Categories\Edit as CategoriesEdit;
 use App\Livewire\Returns\Index as ReturnsIndex;
 use App\Livewire\Admin\Settings as AdminSettings;
+use App\Livewire\LandingPage;
+
+// Public landing pages
+Route::get('/{slug}', LandingPage::class)->name('landing.show');
 
 Route::view('/', 'welcome');
 

@@ -27,6 +27,8 @@ class User extends Authenticatable
         'business_logo',
         'bio',
         'headline',
+        'slug',
+        'landing_page_enabled',
         'recruited_by',
         'invite_code',
         'status',

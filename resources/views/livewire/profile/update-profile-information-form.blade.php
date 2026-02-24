@@ -15,6 +15,10 @@ new class extends Component
     public string $name = '';
     public string $email = '';
     public string $phone = '';
+    public string $slug = '';
+    public string $bio = '';
+    public string $headline = '';
+    public bool $landing_page_enabled = true;
     public string $facebook_url = '';
     public string $instagram_url = '';
     public string $youtube_url = '';
@@ -31,6 +35,10 @@ new class extends Component
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
         $this->phone = Auth::user()->phone ?? '';
+        $this->slug = Auth::user()->slug ?? '';
+        $this->bio = Auth::user()->bio ?? '';
+        $this->headline = Auth::user()->headline ?? '';
+        $this->landing_page_enabled = Auth::user()->landing_page_enabled ?? true;
         $this->facebook_url = Auth::user()->facebook_url ?? '';
         $this->instagram_url = Auth::user()->instagram_url ?? '';
         $this->youtube_url = Auth::user()->youtube_url ?? '';
@@ -49,6 +57,10 @@ new class extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'phone' => ['nullable', 'string', 'max:20'],
+            'slug' => ['required', 'string', 'max:50', 'regex:/^[a-z0-9-]+$/', Rule::unique(User::class)->ignore($user->id)],
+            'bio' => ['nullable', 'string', 'max:500'],
+            'headline' => ['nullable', 'string', 'max:100'],
+            'landing_page_enabled' => ['boolean'],
             'facebook_url' => ['nullable', 'url', 'max:255'],
             'instagram_url' => ['nullable', 'url', 'max:255'],
             'youtube_url' => ['nullable', 'url', 'max:255'],
@@ -62,6 +74,10 @@ new class extends Component
             'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
+            'slug' => $validated['slug'],
+            'bio' => $validated['bio'],
+            'headline' => $validated['headline'],
+            'landing_page_enabled' => $validated['landing_page_enabled'],
             'facebook_url' => $validated['facebook_url'],
             'instagram_url' => $validated['instagram_url'],
             'youtube_url' => $validated['youtube_url'],
@@ -163,6 +179,39 @@ new class extends Component
             <x-input-label for="phone" :value="__('Phone Number')" />
             <x-text-input wire:model="phone" id="phone" name="phone" type="text" class="mt-1 block w-full" />
             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
+
+        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Landing Page</h3>
+            
+            <div>
+                <x-input-label for="slug" :value="__('Page URL')" />
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="text-gray-500 dark:text-gray-400">{{ url('/') }}/</span>
+                    <x-text-input wire:model="slug" id="slug" name="slug" type="text" class="flex-1" placeholder="ashley" required />
+                </div>
+                <x-input-error class="mt-2" :messages="$errors->get('slug')" />
+                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Lowercase letters, numbers, and hyphens only</p>
+            </div>
+
+            <div class="mt-4">
+                <x-input-label for="headline" :value="__('Headline')" />
+                <x-text-input wire:model="headline" id="headline" name="headline" type="text" class="mt-1 block w-full" placeholder="Independent Beauty Consultant" />
+                <x-input-error class="mt-2" :messages="$errors->get('headline')" />
+            </div>
+
+            <div class="mt-4">
+                <x-input-label for="bio" :value="__('Bio')" />
+                <textarea wire:model="bio" id="bio" name="bio" rows="4" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="Tell visitors about yourself..."></textarea>
+                <x-input-error class="mt-2" :messages="$errors->get('bio')" />
+            </div>
+
+            <div class="mt-4">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" wire:model="landing_page_enabled" class="rounded border-gray-300 text-purple-600 focus:ring-purple-500">
+                    <span class="text-sm text-gray-700 dark:text-gray-300">Enable landing page</span>
+                </label>
+            </div>
         </div>
 
         <div>
