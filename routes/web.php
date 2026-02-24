@@ -54,7 +54,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/settings', AdminSettings::class)->name('admin.settings')->middleware('can:admin');
 });
 
-// Public landing pages - MUST BE LAST
-Route::get('/{slug}', LandingPage::class)->name('landing.show');
+// Public landing pages - MUST BE LAST (exclude auth routes)
+Route::get('/{slug}', LandingPage::class)
+    ->where('slug', '^(?!login|register|password|dashboard|customers|products|sales|returns|categories|admin|profile).*$')
+    ->name('landing.show');
 
 require __DIR__.'/auth.php';
