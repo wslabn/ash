@@ -19,9 +19,6 @@ use App\Livewire\Returns\Index as ReturnsIndex;
 use App\Livewire\Admin\Settings as AdminSettings;
 use App\Livewire\LandingPage;
 
-// Public landing pages
-Route::get('/{slug}', LandingPage::class)->name('landing.show');
-
 Route::view('/', 'welcome');
 
 Route::view('dashboard', 'dashboard')
@@ -56,5 +53,8 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/admin/settings', AdminSettings::class)->name('admin.settings')->middleware('can:admin');
 });
+
+// Public landing pages - MUST BE LAST
+Route::get('/{slug}', LandingPage::class)->name('landing.show');
 
 require __DIR__.'/auth.php';
