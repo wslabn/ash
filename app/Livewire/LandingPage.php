@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\CustomerTag;
+use App\Services\DiscordNotificationService;
 use Livewire\Attributes\Layout;
 
 #[Layout('layouts.landing')]
@@ -35,7 +37,7 @@ class LandingPage extends Component
             'message' => 'nullable|string|max:1000',
         ]);
 
-        Customer::create([
+        $customer = Customer::create([
             'user_id' => $this->consultant->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -44,6 +46,18 @@ class LandingPage extends Component
             'notes' => 'Contact form: ' . $this->message,
             'how_met' => 'Landing Page',
         ]);
+        
+        // Add "Lead" tag
+        $leadTag = CustomerTag::where('user_id', $this->consultant->id)
+            ->where('name', 'Lead')
+            ->first();
+        
+        if ($leadTag) {
+            $customer->tags()->attach($leadTag->id);
+        }
+        
+        // Send Discord notification
+        DiscordNotificationService::sendNewLead($this->consultant, $customer);
 
         $this->submitted = true;
         $this->reset(['first_name', 'last_name', 'email', 'phone', 'message']);

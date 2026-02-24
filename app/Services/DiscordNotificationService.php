@@ -135,4 +135,41 @@ class DiscordNotificationService
             // Silently fail
         }
     }
+
+    public static function sendNewLead($consultant, $customer)
+    {
+        $webhookUrl = Setting::get('discord.feedback_webhook');
+        
+        if (!$webhookUrl) return;
+
+        try {
+            Http::post($webhookUrl, [
+                'embeds' => [[
+                    'title' => '📬 New Lead from Landing Page!',
+                    'description' => "**{$customer->full_name}** submitted a contact form",
+                    'color' => 3447003, // Blue
+                    'fields' => [
+                        [
+                            'name' => 'Consultant',
+                            'value' => $consultant->name,
+                            'inline' => true
+                        ],
+                        [
+                            'name' => 'Email',
+                            'value' => $customer->email ?: 'Not provided',
+                            'inline' => true
+                        ],
+                        [
+                            'name' => 'Phone',
+                            'value' => $customer->phone ?: 'Not provided',
+                            'inline' => true
+                        ]
+                    ],
+                    'timestamp' => now()->toIso8601String()
+                ]]
+            ]);
+        } catch (\Exception $e) {
+            // Silently fail
+        }
+    }
 }
