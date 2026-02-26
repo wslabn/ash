@@ -8,6 +8,7 @@ use App\Models\SaleItem;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Inventory;
+use App\Models\Setting;
 use App\Services\DiscordNotificationService;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
@@ -117,7 +118,7 @@ class Create extends Component
         $this->validate([
             'customer_id' => 'required|exists:customers,id',
             'sale_type' => 'required|in:direct,party,online',
-            'payment_method' => 'required|in:cash,card,check,venmo,paypal,cashapp,zelle,other',
+            'payment_method' => 'required|string',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
             'items.*.unit_price' => 'required|numeric|min:0',
@@ -214,7 +215,8 @@ class Create extends Component
     {
         $customers = Customer::where('user_id', auth()->id())->get();
         $products = Product::where('user_id', auth()->id())->get();
+        $paymentMethods = json_decode(Setting::get('payment_methods', json_encode(['Cash', 'Card', 'Check', 'Venmo', 'PayPal', 'CashApp', 'Zelle'])), true);
         
-        return view('livewire.sales.create', compact('customers', 'products'));
+        return view('livewire.sales.create', compact('customers', 'products', 'paymentMethods'));
     }
 }

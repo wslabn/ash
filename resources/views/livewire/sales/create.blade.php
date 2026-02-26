@@ -45,14 +45,9 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Payment Method *</label>
                                 <select wire:model="payment_method" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
-                                    <option value="cash">Cash</option>
-                                    <option value="card">Card</option>
-                                    <option value="check">Check</option>
-                                    <option value="venmo">Venmo</option>
-                                    <option value="paypal">PayPal</option>
-                                    <option value="cashapp">CashApp</option>
-                                    <option value="zelle">Zelle</option>
-                                    <option value="other">Other</option>
+                                    @foreach($paymentMethods as $method)
+                                        <option value="{{ strtolower($method) }}">{{ $method }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 

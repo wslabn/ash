@@ -17,6 +17,8 @@ class Settings extends Component
     public $twilio_phone_number;
     public $discord_community_invite;
     public $discord_feedback_webhook;
+    public $payment_methods = [];
+    public $newPaymentMethod = '';
 
     public function mount()
     {
@@ -32,6 +34,7 @@ class Settings extends Component
         $this->twilio_phone_number = Setting::get('twilio.phone_number', '');
         $this->discord_community_invite = Setting::get('discord.community_invite', '');
         $this->discord_feedback_webhook = Setting::get('discord.feedback_webhook', '');
+        $this->payment_methods = json_decode(Setting::get('payment_methods', json_encode(['Cash', 'Card', 'Check', 'Venmo', 'PayPal', 'CashApp', 'Zelle'])), true);
     }
 
     public function save()
@@ -49,8 +52,25 @@ class Settings extends Component
         Setting::set('twilio.phone_number', $this->twilio_phone_number);
         Setting::set('discord.community_invite', $this->discord_community_invite);
         Setting::set('discord.feedback_webhook', $this->discord_feedback_webhook, true);
+        Setting::set('payment_methods', json_encode($this->payment_methods));
 
         session()->flash('message', 'Settings saved successfully!');
+    }
+
+    public function addPaymentMethod()
+    {
+        if (empty(trim($this->newPaymentMethod))) {
+            return;
+        }
+        
+        $this->payment_methods[] = trim($this->newPaymentMethod);
+        $this->newPaymentMethod = '';
+    }
+    
+    public function removePaymentMethod($index)
+    {
+        unset($this->payment_methods[$index]);
+        $this->payment_methods = array_values($this->payment_methods);
     }
 
     public function render()

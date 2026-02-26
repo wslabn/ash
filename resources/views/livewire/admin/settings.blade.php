@@ -87,6 +87,34 @@
                         </div>
                     </div>
 
+                    <!-- Payment Methods -->
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-8">
+                        <h3 class="text-lg font-medium mb-4">Payment Methods</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Manage available payment methods for sales</p>
+                        
+                        <div class="space-y-3 mb-4">
+                            @foreach($payment_methods as $index => $method)
+                                <div class="flex items-center justify-between bg-gray-50 dark:bg-gray-700 px-4 py-2 rounded-lg">
+                                    <span>{{ $method }}</span>
+                                    <button type="button" wire:click="removePaymentMethod({{ $index }})" 
+                                        class="text-red-600 hover:text-red-800 dark:text-red-400">
+                                        Remove
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <input type="text" wire:model="newPaymentMethod" 
+                                placeholder="Add new payment method"
+                                class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                            <button type="button" wire:click="addPaymentMethod" 
+                                class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="flex justify-end">
                         <button type="submit" 
                             class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition">
