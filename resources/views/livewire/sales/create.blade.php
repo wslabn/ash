@@ -1,8 +1,15 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            New Sale
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                New Sale @if($draftId)<span class="text-sm text-gray-500">(Draft Auto-Saved)</span>@endif
+            </h2>
+            @if($draftId)
+                <button wire:click="deleteDraft" class="text-sm text-red-600 hover:text-red-800 dark:text-red-400">
+                    Discard Draft
+                </button>
+            @endif
+        </div>
     </x-slot>
 
     <div class="py-12">

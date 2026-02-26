@@ -22,6 +22,7 @@ class Create extends Component
     public $items = [];
     public $tax_rate = 8.25;
     public $shipping_amount = 0;
+    public $draftId = null;
     
     // Quick add customer modal
     public $showCustomerModal = false;
@@ -33,12 +34,100 @@ class Create extends Component
 
     public function mount()
     {
-        // Pre-select customer from query parameter
-        if (request()->has('customer_id')) {
-            $this->customer_id = request()->get('customer_id');
+        // Load draft if exists
+        $draft = Sale::where('user_id', auth()->id())
+            ->where('status', 'draft')
+            ->with('items')
+            ->first();
+            
+        if ($draft) {
+            $this->draftId = $draft->id;
+            $this->customer_id = $draft->customer_id;
+            $this->sale_type = $draft->sale_type;
+            $this->payment_method = $draft->payment_method;
+            $this->tax_rate = $draft->tax_rate * 100;
+            $this->shipping_amount = $draft->shipping_amount;
+            $this->items = $draft->items->map(fn($item) => [
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity,
+                'unit_price' => $item->unit_price,
+                'original_price' => $item->unit_price
+            ])->toArray();
+        } else {
+            $this->addItem();
+        }
+    }
+
+    public function updated($property)
+    {
+        if (!in_array($property, ['showCustomerModal', 'newCustomerFirstName', 'newCustomerLastName', 'newCustomerPhone', 'newCustomerEmail', 'newCustomerHowMet'])) {
+            $this->saveDraft();
+        }
+    }
+    
+    public function saveDraft()
+    {
+        if (empty($this->items) || empty($this->items[0]['product_id'])) {
+            return;
         }
         
-        $this->addItem();
+        DB::beginTransaction();
+        try {
+            $subtotal = collect($this->items)->sum(fn($item) => ($item['quantity'] ?? 0) * ($item['unit_price'] ?? 0));
+            $tax = $subtotal * ($this->tax_rate / 100);
+            $total = $subtotal + $tax + ($this->shipping_amount ?? 0);
+            
+            $data = [
+                'user_id' => auth()->id(),
+                'customer_id' => $this->customer_id ?: null,
+                'sale_type' => $this->sale_type,
+                'subtotal' => $subtotal,
+                'tax_amount' => $tax,
+                'tax_rate' => $this->tax_rate / 100,
+                'shipping_amount' => $this->shipping_amount ?? 0,
+                'total_amount' => $total,
+                'payment_method' => $this->payment_method,
+                'status' => 'draft',
+            ];
+            
+            if ($this->draftId) {
+                $sale = Sale::find($this->draftId);
+                $sale->update($data);
+                $sale->items()->delete();
+            } else {
+                $data['sale_number'] = 'DRAFT-' . time();
+                $sale = Sale::create($data);
+                $this->draftId = $sale->id;
+            }
+            
+            foreach ($this->items as $item) {
+                if (!empty($item['product_id'])) {
+                    $product = Product::find($item['product_id']);
+                    SaleItem::create([
+                        'sale_id' => $sale->id,
+                        'product_id' => $item['product_id'],
+                        'quantity' => $item['quantity'] ?? 1,
+                        'unit_cost' => $product->base_cost,
+                        'unit_price' => $item['unit_price'] ?? 0,
+                        'discount_amount' => 0,
+                        'subtotal' => ($item['quantity'] ?? 1) * ($item['unit_price'] ?? 0),
+                    ]);
+                }
+            }
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+    }
+    
+    public function deleteDraft()
+    {
+        if ($this->draftId) {
+            Sale::find($this->draftId)?->delete();
+            $this->draftId = null;
+        }
+        return redirect()->route('sales.index');
     }
 
     public function getSubtotalProperty()
@@ -130,18 +219,38 @@ class Create extends Component
             $tax = $subtotal * ($this->tax_rate / 100);
             $total = $subtotal + $tax + $this->shipping_amount;
 
-            $sale = Sale::create([
-                'user_id' => auth()->id(),
-                'customer_id' => $this->customer_id,
-                'sale_number' => $this->generateSaleNumber(),
-                'sale_type' => $this->sale_type,
-                'subtotal' => $subtotal,
-                'tax_amount' => $tax,
-                'shipping_amount' => $this->shipping_amount,
-                'total_amount' => $total,
-                'payment_status' => 'paid',
-                'payment_method' => $this->payment_method,
-            ]);
+            if ($this->draftId) {
+                $sale = Sale::find($this->draftId);
+                $sale->update([
+                    'customer_id' => $this->customer_id,
+                    'sale_number' => $this->generateSaleNumber(),
+                    'sale_type' => $this->sale_type,
+                    'subtotal' => $subtotal,
+                    'tax_amount' => $tax,
+                    'tax_rate' => $this->tax_rate / 100,
+                    'shipping_amount' => $this->shipping_amount,
+                    'total_amount' => $total,
+                    'payment_status' => 'paid',
+                    'payment_method' => $this->payment_method,
+                    'status' => 'completed',
+                ]);
+                $sale->items()->delete();
+            } else {
+                $sale = Sale::create([
+                    'user_id' => auth()->id(),
+                    'customer_id' => $this->customer_id,
+                    'sale_number' => $this->generateSaleNumber(),
+                    'sale_type' => $this->sale_type,
+                    'subtotal' => $subtotal,
+                    'tax_amount' => $tax,
+                    'tax_rate' => $this->tax_rate / 100,
+                    'shipping_amount' => $this->shipping_amount,
+                    'total_amount' => $total,
+                    'payment_status' => 'paid',
+                    'payment_method' => $this->payment_method,
+                    'status' => 'completed',
+                ]);
+            }
 
             foreach ($this->items as $item) {
                 $product = Product::find($item['product_id']);
@@ -185,7 +294,7 @@ class Create extends Component
     private function generateSaleNumber()
     {
         $startingNumber = auth()->user()->getSetting('sale_starting_number', 1);
-        $count = Sale::where('user_id', auth()->id())->count();
+        $count = Sale::where('user_id', auth()->id())->where('status', 'completed')->count();
         $number = $startingNumber + $count;
         return str_pad($number, max(4, strlen($number)), '0', STR_PAD_LEFT);
     }

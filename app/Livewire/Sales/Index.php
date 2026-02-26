@@ -23,6 +23,7 @@ class Index extends Component
     {
         $sales = Sale::with(['customer', 'user'])
             ->where('user_id', auth()->id())
+            ->where('status', 'completed')
             ->when($this->search, function($query) {
                 $query->where('sale_number', 'like', '%' . $this->search . '%')
                     ->orWhereHas('customer', function($q) {
