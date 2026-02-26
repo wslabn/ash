@@ -14,6 +14,16 @@ class Index extends Component
 
     public $search = '';
 
+    public function deleteDraft($saleId)
+    {
+        Sale::where('id', $saleId)
+            ->where('user_id', auth()->id())
+            ->where('status', 'draft')
+            ->delete();
+        
+        session()->flash('message', 'Draft deleted successfully!');
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();

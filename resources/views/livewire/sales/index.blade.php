@@ -61,7 +61,10 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $sale->created_at->format('M d, Y') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             @if($sale->status === 'draft')
-                                                <a href="{{ route('sales.create', ['draft_id' => $sale->id]) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold">Continue</a>
+                                                <div class="flex gap-2 justify-end">
+                                                    <a href="{{ route('sales.create', ['draft_id' => $sale->id]) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold">Continue</a>
+                                                    <button wire:click="deleteDraft({{ $sale->id }})" wire:confirm="Delete this draft?" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-bold">Delete</button>
+                                                </div>
                                             @else
                                                 <a href="{{ route('sales.show', $sale) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold">View</a>
                                             @endif
