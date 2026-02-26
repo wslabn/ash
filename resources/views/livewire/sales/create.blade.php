@@ -50,6 +50,9 @@
                                     <option value="check">Check</option>
                                     <option value="venmo">Venmo</option>
                                     <option value="paypal">PayPal</option>
+                                    <option value="cashapp">CashApp</option>
+                                    <option value="zelle">Zelle</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
 
@@ -59,7 +62,7 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Shipping ($)</label>
-                                <input wire:model.live="shipping_amount" type="number" step="0.01" min="0" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+                                <input wire:model.live="shipping_amount" type="text" inputmode="decimal" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
                             </div>
                         </div>
 
@@ -206,7 +209,7 @@
                     <button type="button" wire:click="closeCustomerModal" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
                         Cancel
                     </button>
-                    <button type="button" wire:click="saveQuickCustomer" class="bg-mary-kay-pink hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                    <button type="button" wire:click="saveQuickCustomer" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                         Add Customer
                     </button>
                 </div>

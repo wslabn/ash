@@ -110,7 +110,6 @@ class Create extends Component
         
         $this->customer_id = $customer->id;
         $this->closeCustomerModal();
-        $this->dispatch('customer-added');
     }
 
     public function save()
@@ -118,7 +117,7 @@ class Create extends Component
         $this->validate([
             'customer_id' => 'required|exists:customers,id',
             'sale_type' => 'required|in:direct,party,online',
-            'payment_method' => 'required|in:cash,card,check,venmo,paypal',
+            'payment_method' => 'required|in:cash,card,check,venmo,paypal,cashapp,zelle,other',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
             'items.*.unit_price' => 'required|numeric|min:0',
