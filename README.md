@@ -134,14 +134,20 @@ npm run dev
 - Product & inventory management
 - Product categories
 - Sales system (Retail/Party/Online)
+- Draft sales with auto-save
+- Dynamic payment methods management
 - Payment tracking
-- Invoice generation
+- Invoice generation (browser print)
 - Return processing
 - Customer detail pages with purchase history
 - Quick add customer modal
 - Inventory adjustments
 - Global search
 - Dark mode support
+- Discord integration (community, feedback, notifications)
+- Public landing pages for consultants
+- Lead management and tagging
+- Admin settings UI (SendGrid, Twilio, Discord)
 
 ### 🚧 In Progress (Phase 2)
 - Advanced customer insights
