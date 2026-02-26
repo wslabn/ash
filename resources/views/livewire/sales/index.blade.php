@@ -45,16 +45,26 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-green-600 dark:text-green-400 font-semibold">${{ number_format($sale->total_amount, 2) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full 
-                                                @if($sale->payment_status === 'paid') bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
-                                                @elseif($sale->payment_status === 'pending') bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
-                                                @else bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200 @endif">
-                                                {{ ucfirst($sale->payment_status) }}
-                                            </span>
+                                            @if($sale->status === 'draft')
+                                                <span class="px-2 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                                    Draft
+                                                </span>
+                                            @else
+                                                <span class="px-2 py-1 text-xs rounded-full 
+                                                    @if($sale->payment_status === 'paid') bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
+                                                    @elseif($sale->payment_status === 'pending') bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
+                                                    @else bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200 @endif">
+                                                    {{ ucfirst($sale->payment_status) }}
+                                                </span>
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $sale->created_at->format('M d, Y') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('sales.show', $sale) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold">View</a>
+                                            @if($sale->status === 'draft')
+                                                <a href="{{ route('sales.create', ['draft_id' => $sale->id]) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold">Continue</a>
+                                            @else
+                                                <a href="{{ route('sales.show', $sale) }}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold">View</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty
