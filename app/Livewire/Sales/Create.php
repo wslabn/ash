@@ -23,6 +23,7 @@ class Create extends Component
     public $tax_rate = 8.25;
     public $shipping_amount = 0;
     public $draftId = null;
+    public $showDraftsList = false;
     
     // Quick add customer modal
     public $showCustomerModal = false;
@@ -34,8 +35,16 @@ class Create extends Component
 
     public function mount()
     {
-        // Load draft if exists
+        // Load specific draft from query parameter
+        if (request()->has('draft_id')) {
+            $this->loadDraft(request()->get('draft_id'));
+        }
+    }
+    
+    public function loadDraft($draftId)
+    {
         $draft = Sale::where('user_id', auth()->id())
+            ->where('id', $draftId)
             ->where('status', 'draft')
             ->with('items')
             ->first();
@@ -53,9 +62,20 @@ class Create extends Component
                 'unit_price' => $item->unit_price,
                 'original_price' => $item->unit_price
             ])->toArray();
+            $this->showDraftsList = false;
         } else {
             $this->addItem();
         }
+    }
+    
+    public function newDraft()
+    {
+        $this->reset(['draftId', 'customer_id', 'items', 'sale_type', 'payment_method', 'shipping_amount']);
+        $this->sale_type = 'direct';
+        $this->payment_method = 'cash';
+        $this->tax_rate = 8.25;
+        $this->addItem();
+        $this->showDraftsList = false;
     }
 
     public function updated($property)
@@ -125,9 +145,8 @@ class Create extends Component
     {
         if ($this->draftId) {
             Sale::find($this->draftId)?->delete();
-            $this->draftId = null;
         }
-        return redirect()->route('sales.index');
+        $this->newDraft();
     }
 
     public function getSubtotalProperty()
@@ -325,7 +344,12 @@ class Create extends Component
         $customers = Customer::where('user_id', auth()->id())->get();
         $products = Product::where('user_id', auth()->id())->get();
         $paymentMethods = json_decode(Setting::get('payment_methods', json_encode(['Cash', 'Card', 'Check', 'Venmo', 'PayPal', 'CashApp', 'Zelle'])), true);
+        $drafts = Sale::where('user_id', auth()->id())
+            ->where('status', 'draft')
+            ->with('customer')
+            ->latest()
+            ->get();
         
-        return view('livewire.sales.create', compact('customers', 'products', 'paymentMethods'));
+        return view('livewire.sales.create', compact('customers', 'products', 'paymentMethods', 'drafts'));
     }
 }

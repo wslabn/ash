@@ -4,16 +4,56 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 New Sale @if($draftId)<span class="text-sm text-gray-500">(Draft Auto-Saved)</span>@endif
             </h2>
-            @if($draftId)
-                <button wire:click="deleteDraft" class="text-sm text-red-600 hover:text-red-800 dark:text-red-400">
-                    Discard Draft
-                </button>
-            @endif
+            <div class="flex gap-2">
+                @if($drafts->count() > 0)
+                    <button wire:click="$toggle('showDraftsList')" class="text-sm bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                        Drafts ({{ $drafts->count() }})
+                    </button>
+                @endif
+                @if($draftId)
+                    <button wire:click="newDraft" class="text-sm bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded">
+                        New Draft
+                    </button>
+                    <button wire:click="deleteDraft" class="text-sm text-red-600 hover:text-red-800 dark:text-red-400">
+                        Discard
+                    </button>
+                @endif
+            </div>
         </div>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- Drafts List Modal -->
+            @if($showDraftsList)
+            <div class="mb-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-semibold text-gray-900 dark:text-gray-100">Saved Drafts</h3>
+                    <button wire:click="$toggle('showDraftsList')" class="text-gray-500 hover:text-gray-700">
+                        ✕
+                    </button>
+                </div>
+                <div class="space-y-2">
+                    @foreach($drafts as $draft)
+                        <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"
+                             wire:click="loadDraft({{ $draft->id }})">
+                            <div>
+                                <div class="font-medium text-gray-900 dark:text-gray-100">
+                                    {{ $draft->customer ? $draft->customer->full_name : 'No Customer' }}
+                                </div>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ $draft->items->count() }} items • ${{ number_format($draft->total_amount, 2) }} • {{ $draft->updated_at->diffForHumans() }}
+                                </div>
+                            </div>
+                            @if($draftId == $draft->id)
+                                <span class="text-xs bg-purple-600 text-white px-2 py-1 rounded">Current</span>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
             @if (session()->has('error'))
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                     {{ session('error') }}
