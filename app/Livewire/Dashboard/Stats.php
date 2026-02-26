@@ -72,6 +72,13 @@ class Stats extends Component
         $activeTeamMembers = \App\Models\User::where('recruited_by', $userId)
             ->where('status', 'active')
             ->count();
+        
+        // Draft sales
+        $draftSales = Sale::where('user_id', $userId)
+            ->where('status', 'draft')
+            ->with('customer')
+            ->latest()
+            ->get();
 
         return view('livewire.dashboard.stats', [
             'totalSales' => $totalSales,
@@ -84,6 +91,7 @@ class Stats extends Component
             'recruitingInterest' => $recruitingInterest,
             'convertedConsultants' => $convertedConsultants,
             'activeTeamMembers' => $activeTeamMembers,
+            'draftSales' => $draftSales,
         ]);
     }
 }

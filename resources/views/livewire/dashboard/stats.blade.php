@@ -38,6 +38,33 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Draft Sales -->
+            @if($draftSales->count() > 0)
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border-2 border-yellow-400 dark:border-yellow-600">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">⚠️ Unfinished Sales</h3>
+                        <span class="text-sm bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded">{{ $draftSales->count() }}</span>
+                    </div>
+                    <div class="space-y-2 max-h-64 overflow-y-auto">
+                        @foreach($draftSales as $draft)
+                            <a href="{{ route('sales.create', ['draft_id' => $draft->id]) }}" 
+                               class="block p-3 bg-yellow-50 dark:bg-yellow-900/20 hover:bg-yellow-100 dark:hover:bg-yellow-900/30 rounded transition">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-gray-100">{{ $draft->customer ? $draft->customer->full_name : 'No Customer' }}</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ $draft->items->count() }} items • ${{ number_format($draft->total_amount, 2) }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">{{ $draft->updated_at->diffForHumans() }}</p>
+                                    </div>
+                                    <span class="text-purple-600 dark:text-purple-400 text-sm">Continue →</span>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            @endif
+            
             <!-- Top Customers -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
