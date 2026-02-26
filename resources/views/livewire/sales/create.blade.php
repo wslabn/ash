@@ -14,7 +14,7 @@
                     <button wire:click="newDraft" class="text-sm bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded">
                         New Draft
                     </button>
-                    <button wire:click="deleteDraft" class="text-sm text-red-600 hover:text-red-800 dark:text-red-400">
+                    <button wire:click="deleteDraft" onclick="console.log('Discard button clicked'); console.log('Draft ID:', @js($draftId));" class="text-sm text-red-600 hover:text-red-800 dark:text-red-400">
                         Discard
                     </button>
                 @endif

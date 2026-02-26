@@ -143,9 +143,13 @@ class Create extends Component
     
     public function deleteDraft()
     {
+        \Log::info('deleteDraft called', ['draftId' => $this->draftId]);
+        
         if ($this->draftId) {
-            Sale::find($this->draftId)?->delete();
+            $deleted = Sale::find($this->draftId)?->delete();
+            \Log::info('Draft deleted', ['deleted' => $deleted]);
         }
+        
         session()->flash('message', 'Draft discarded successfully!');
         return redirect()->route('sales.index');
     }
