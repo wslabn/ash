@@ -146,7 +146,8 @@ class Create extends Component
         if ($this->draftId) {
             Sale::find($this->draftId)?->delete();
         }
-        $this->newDraft();
+        session()->flash('message', 'Draft discarded successfully!');
+        return redirect()->route('sales.index');
     }
 
     public function getSubtotalProperty()
