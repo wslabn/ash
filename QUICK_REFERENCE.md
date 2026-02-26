@@ -77,8 +77,9 @@
 
 #### Sales
 - **Types:** Direct, party, online
-- **Payments:** Stripe, cash, check, card, venmo, paypal, invoice
+- **Payments:** Stripe, cash, card, check, venmo, paypal, cashapp, zelle, custom (admin configurable)
 - **Features:** Discounts, tax calculation, shipping, returns
+- **Drafts:** Auto-save unfinished sales, multiple drafts support, resume later
 - **Inventory:** Auto-deduction on sale
 - **Invoices:** Browser print (save as PDF or print)
 - **Sale Numbers:** Customizable starting point (1, 100, 1000, 10000)
@@ -223,6 +224,7 @@
 - **SendGrid:** API key, from address, from name
 - **Twilio:** Account SID, auth token, phone number
 - **Discord:** Community invite, feedback webhook
+- **Payment Methods:** Add/remove custom payment methods (CashApp, Zelle, etc.)
 - **No .env editing required** - all configured through UI
 
 #### Profile Enhancements
@@ -354,6 +356,6 @@
 
 ---
 
-**Quick Reference Version:** 3.0  
-**Last Updated:** February 24, 2026  
+**Quick Reference Version:** 3.1  
+**Last Updated:** February 26, 2026  
 **For Questions:** Refer to PROJECT_PLAN.md for full details

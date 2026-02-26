@@ -355,6 +355,15 @@
 
 ## Recent Updates
 
+### February 26, 2026 - Draft Sales & Payment Methods! 🎉
+- ✅ **Draft Sales**: Auto-save functionality - navigate away and resume later
+- ✅ **Multiple Drafts**: Support for multiple unfinished sales with selection list
+- ✅ **Dashboard Widget**: Yellow "⚠️ Unfinished Sales" alert box on dashboard
+- ✅ **Delete Drafts**: Delete button on Sales page with confirmation
+- ✅ **Dynamic Payment Methods**: Admin can add/remove payment methods (CashApp, Zelle, etc.)
+- ✅ **UX Improvements**: Text shipping input, button visibility fixes, auto-select new customers
+- 🎊 Sales workflow significantly improved based on user feedback
+
 ### February 24, 2026 - Landing Pages Complete! 🎉
 - ✅ **Public Landing Pages**: Consultants get their own page (ashbrooke.com/ashley)
 - ✅ **Contact Form**: Auto-creates customers with "Landing Page" source
@@ -418,5 +427,5 @@
 
 ---
 
-**Last Updated:** February 22, 2026  
+**Last Updated:** February 26, 2026  
 **Next Review:** Before starting Phase 3 or Phase 5
