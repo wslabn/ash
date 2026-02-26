@@ -106,6 +106,24 @@
 
 ---
 
+## Phase 2.5: Sales Workflow & UX ✅
+**Goal:** Improve sales workflow based on user feedback  
+**Status:** Complete (6/6 tasks)
+**Started:** February 26, 2026
+**Completed:** February 26, 2026
+
+### 2.5.1 Draft Sales (3/3) ✅
+- [x] Auto-save draft sales functionality
+- [x] Multiple drafts support with selection list
+- [x] Dashboard widget for unfinished sales
+
+### 2.5.2 Payment & UX Improvements (3/3) ✅
+- [x] Dynamic payment methods management (admin configurable)
+- [x] Sales form UX fixes (shipping input, button visibility, auto-select customer)
+- [x] Delete draft functionality on Sales page
+
+---
+
 ## Phase 3: Payments & Automation ⏸️
 **Goal:** Add payment processing and automated communications  
 **Status:** Not Started (0/26 tasks)
@@ -334,17 +352,18 @@
 ## Overall Progress
 
 ### Summary
-- **Total Tasks:** 187 (162 original + 10 Phase 1.5 + 15 Phase 2)
-- **Completed:** 62 (36 Phase 1 + 10 Phase 1.5 + 11 Phase 2 + 5 Phase 5.2)
+- **Total Tasks:** 193 (162 original + 10 Phase 1.5 + 15 Phase 2 + 6 Phase 2.5)
+- **Completed:** 68 (36 Phase 1 + 10 Phase 1.5 + 11 Phase 2 + 6 Phase 2.5 + 5 Phase 5.2)
 - **Skipped/Deferred:** 4 (Phase 2 - not needed for current use case)
 - **Remaining:** 111
-- **Overall Progress:** 33%
+- **Overall Progress:** 35%
 
 ### Phase Status
 - ✅ Planning: Complete
 - ✅ Phase 1: Complete (36/36)
 - ✅ Phase 1.5: Complete (10/10)
 - ✅ Phase 2: Complete (11/15 - 4 skipped)
+- ✅ Phase 2.5: Complete (6/6)
 - ⏸️ Phase 3: Not Started
 - ⏸️ Phase 4: Not Started
 - ⏳ Phase 5: In Progress (5/23)
